@@ -9,7 +9,6 @@ export class ScrollHereDirective {
 
   @Input() set ngcScrollHere(v: boolean) {
     if (v) {
-      console.log(this.ngcScrollContainer);
       const view = typeof this.ngcScrollContainer === 'string' ? document.querySelectorAll(this.ngcScrollContainer)[0] : this.ngcScrollContainer;
       this.ngcScrollTriggered.emit(true);
       const pageScrollInstance: PageScrollInstance = new PageScrollInstance({
