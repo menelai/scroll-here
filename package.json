@@ -11,15 +11,19 @@
     "scroll-prod": "cd projects/scroll-here && npm --no-git-tag-version version patch && ng build scroll-here --prod",
     "scroll-publish": "cd dist/scroll-here && npm publish --access=public",
     "validators-prod": "cd projects/validators && npm --no-git-tag-version version patch && ng build validators --prod",
-    "validators-publish": "cd dist/validators && npm publish --access=public"
+    "validators-publish": "cd dist/validators && npm publish --access=public",
+    "base-components-prod": "cd projects/base-components && npm --no-git-tag-version version patch && ng build base-components --prod",
+    "base-components-publish": "cd dist/base-components && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.6",
+    "@angular/cdk": "^11.2.11",
     "@angular/common": "~11.2.6",
     "@angular/compiler": "~11.2.6",
     "@angular/core": "~11.2.6",
     "@angular/forms": "~11.2.6",
+    "@angular/material": "^11.2.11",
     "@angular/platform-browser": "~11.2.6",
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",

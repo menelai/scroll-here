@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import {ScrollHereModule} from 'scroll-here';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {ScrollHereModule} from 'scroll-here';
   imports: [
     BrowserModule,
     ScrollHereModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

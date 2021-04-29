@@ -15,6 +15,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
+      "base-components": [
+        "dist/base-components/base-components",
+        "dist/base-components"
+      ],
       "scroll-here": [
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"

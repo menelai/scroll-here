@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -94,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -198,6 +200,46 @@
             "tsConfig": [
               "projects/validators/tsconfig.lib.json",
               "projects/validators/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "base-components": {
+      "projectType": "library",
+      "root": "projects/base-components",
+      "sourceRoot": "projects/base-components/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/base-components/tsconfig.lib.json",
+            "project": "projects/base-components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/base-components/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/base-components/src/test.ts",
+            "tsConfig": "projects/base-components/tsconfig.spec.json",
+            "karmaConfig": "projects/base-components/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/base-components/tsconfig.lib.json",
+              "projects/base-components/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
