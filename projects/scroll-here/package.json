@@ -1,6 +1,6 @@
 {
   "name": "@kovalenko/scroll-here",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "peerDependencies": {
     "ngx-page-scroll-core": "^7.0.4",
     "@angular/common": "^11.2.12",
@@ -8,5 +8,18 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/menelai/scroll-here.git"
+  },
+  "keywords": [
+    "angular",
+    "scroll"
+  ],
+  "author": "Kovalenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/menelai/scroll-here/issues"
   }
 }

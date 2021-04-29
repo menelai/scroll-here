@@ -66,3 +66,7 @@ export class AppComponent {
   toTop = false;
 }
 ```
+
+## License
+
+MIT
