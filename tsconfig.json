@@ -18,6 +18,10 @@
       "scroll-here": [
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"
+      ],
+      "validators": [
+        "dist/validators/validators",
+        "dist/validators"
       ]
     },
     "target": "es2015",

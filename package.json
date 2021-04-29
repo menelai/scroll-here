@@ -8,8 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "cd projects/scroll-here && npm --no-git-tag-version version patch && ng build scroll-here --prod",
-    "publish": "cd dist/scroll-here && npm publish --access=public"
+    "scroll-prod": "cd projects/scroll-here && npm --no-git-tag-version version patch && ng build scroll-here --prod",
+    "scroll-publish": "cd dist/scroll-here && npm publish --access=public",
+    "validators-prod": "cd projects/validators && npm --no-git-tag-version version patch && ng build validators --prod",
+    "validators-publish": "cd dist/validators && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
