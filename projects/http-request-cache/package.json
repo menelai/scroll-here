@@ -1,8 +1,8 @@
 {
   "name": "@kovalenko/http-request-cache",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "peerDependencies": {
-    "rxjs": "~6.6.0"
+    "rxjs": ">=6.6.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
