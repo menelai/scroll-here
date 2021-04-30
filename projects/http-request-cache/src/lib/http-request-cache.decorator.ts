@@ -7,7 +7,7 @@ type HttpRequestCacheMethod = (...args: any[]) => Observable<any>;
 
 const defaultStorage = new DefaultStorage();
 
-export const HttpRequestCache = <T extends Record<string, any>>(optionsHandler?: (obj: T) => HttpCacheOptions) => {
+export const HttpRequestCache = <T extends Record<string, any>>(optionsHandler?: (obj: T, ...args: any[]) => HttpCacheOptions) => {
   return (target: T, methodName: string, descriptor: TypedPropertyDescriptor<HttpRequestCacheMethod>): TypedPropertyDescriptor<HttpRequestCacheMethod> => {
     if (!(descriptor?.value instanceof Function)) {
       throw Error(`'@HttpRequestCache' can be applied only to the class method which returns an Observable`);
@@ -17,7 +17,7 @@ export const HttpRequestCache = <T extends Record<string, any>>(optionsHandler?:
     const originalMethod = descriptor.value;
 
     descriptor.value = function(...args: any[]): Observable<any> {
-      const options = optionsHandler?.call(this as T, this as T);
+      const options = optionsHandler?.call(this as T, this as T, ...args);
 
       const storage = options?.storage ?? defaultStorage;
       const refreshOn = options?.refreshOn ?? NEVER as Observable<unknown>;

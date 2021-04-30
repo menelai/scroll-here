@@ -1,6 +1,8 @@
 # HttpRequestCache
 
-TS decorator for caching logic of API calls
+TS decorator for caching logic of API calls.
+
+Inspired by [How to use TS decorators to add caching logic to API calls](https://indepth.dev/posts/1450/how-to-use-ts-decorators-to-add-caching-logic-to-api-calls)
 
 ## Installation
 
@@ -10,7 +12,11 @@ npm install @kovalenko/http-request-cache
 
 ## Supported API
 
-`@HttpRequestCache<T>(thisObj? => HttpCacheOptions)` — A method decorator that will cache data
+`@HttpRequestCache<T>((thisObj?: T, ...args: any[]) => HttpCacheOptions)` — A method decorator that will cache data
+
+`thisObj` is this object
+
+`args` are decorated method's arguments
 
 ```typescript
 interface HttpCacheOptions {
@@ -23,6 +29,7 @@ interface HttpCacheOptions {
 export interface HttpCacheStorage {
   setItem(key: string, item: Observable<any>): void; // sets cache
   getItem(key: string): Observable<any> | undefined; // gets cache
+  deleteItem(key: string): void; // deletes cache
 }
 ```
 
@@ -58,6 +65,23 @@ export class DataService {
     refreshOn: dataService.refresh$
   }))
   list(): Observable<any> {
+    return this.http.get('assets/angular.json');
+  }
+}
+```
+
+### Parametrized refresh
+
+```typescript
+@Injectable()
+export class DataService {
+  refresh$ = new Subject<string>();
+  constructor(private http: HttpClient) { }
+
+  @HttpRequestCache<DataService>((dataService, id: string) => ({
+    refreshOn: dataService.refresh$.pipe(filter(r => r === id))
+  }))
+  list(id: string): Observable<any> {
     return this.http.get('assets/angular.json');
   }
 }

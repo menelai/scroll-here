@@ -8,7 +8,11 @@ export class DefaultStorage implements HttpCacheStorage {
     return this.storage.get(key);
   }
 
-  setItem(key: string, item: Observable<any>) {
+  setItem(key: string, item: Observable<any>): void {
     this.storage.set(key, item);
+  }
+
+  deleteItem(key: string): void {
+    this.storage.delete(key);
   }
 }

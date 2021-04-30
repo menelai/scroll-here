@@ -17,10 +17,14 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => this.s = true, 1000);
 
-    this.dataService.list().subscribe(console.log);
-    this.dataService.list().subscribe(console.log);
-    this.dataService.list().subscribe(console.log);
+    this.dataService.list('1').subscribe(console.log);
+    this.dataService.list('2').subscribe(console.log);
+    this.dataService.list('2').subscribe(console.log);
 
-    setTimeout(() => this.dataService.refresh$.next(), 2000);
+    setTimeout(() => {
+      this.dataService.list('4').subscribe(console.log);
+      this.dataService.refresh$.next('1');
+      this.dataService.refresh$.next('6');
+    }, 2000);
   }
 }
