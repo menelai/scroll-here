@@ -1,0 +1,6 @@
+<div *ngIf="data?.title" mat-dialog-title>{{ data.title }}</div>
+<div class="pw" [innerHTML]="data.message"></div>
+<div align="end" mat-dialog-actions>
+  <button (click)="dialogRef.close()" mat-button type="button">{{ data?.buttons?.cancel }}</button>
+  <button [matDialogClose]="true" cdkFocusInitial mat-button type="submit">{{ data?.buttons?.ok }}</button>
+</div>

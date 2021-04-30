@@ -1,5 +1,7 @@
 # Validators
 
+min, max, match
+
 ## Installation
 
 ```
@@ -46,7 +48,7 @@ First, import the ValidatorsModule to your module:
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ValidatorsModule } from '@menelai/validators';
+import { ValidatorsModule } from '@kovalenko/validators';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app';
 

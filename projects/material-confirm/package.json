@@ -1,9 +1,11 @@
 {
-  "name": "@kovalenko/validators",
-  "version": "0.0.5",
+  "name": "@kovalenko/material-confirm",
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": ">=11.0.0",
-    "@angular/core": ">=11.0.0"
+    "@angular/core": ">=11.0.0",
+    "@angular/material": ">=11.0.0",
+    "@angular/cdk": ">=11.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
@@ -14,10 +16,8 @@
   },
   "keywords": [
     "angular",
-    "validator",
-    "min",
-    "max",
-    "match"
+    "material",
+    "confirm"
   ],
   "author": "Kovalenko",
   "license": "MIT",

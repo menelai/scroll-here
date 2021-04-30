@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => this.s = true, 1000);
+    // setTimeout(() => this.s = true, 1000);
 
     this.dataService.list('1').subscribe(console.log);
     this.dataService.list('2').subscribe(console.log);

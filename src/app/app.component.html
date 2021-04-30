@@ -2,6 +2,7 @@
   <div style="height:1000px"></div>
   <div [ngcScrollContainer]="scroller" [ngcScrollHere]="true">lal</div>
 </div>-->
+<button (confirm)="s = true" confirmMessage="<p>Confirm</p>kak" confirmTitle="Joj">Scroll</button>
 
 <div style="padding-top: 3000px" [ngcScrollHere]="toTop" [ngcScrollDuration]="4000">
   <div [ngcScrollHere]="!triggered && s" ngcScrollContainer="html" [ngcScrollDuration]="2000" (ngcScrollTriggered)="triggered = true" (ngcScrollFinished)="toTop = true">joj</div>

@@ -33,7 +33,7 @@ First, import the ScrollHereModule to your module:
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ScrollHereModule } from '@menelai/scroll-here';
+import { ScrollHereModule } from '@kovalenko/scroll-here';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app';
 

@@ -23,6 +23,10 @@
         "dist/http-request-cache/http-request-cache",
         "dist/http-request-cache"
       ],
+      "material-confirm": [
+        "dist/material-confirm/material-confirm",
+        "dist/material-confirm"
+      ],
       "scroll-here": [
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"

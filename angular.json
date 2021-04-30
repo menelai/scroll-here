@@ -287,6 +287,46 @@
           }
         }
       }
+    },
+    "material-confirm": {
+      "projectType": "library",
+      "root": "projects/material-confirm",
+      "sourceRoot": "projects/material-confirm/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/material-confirm/tsconfig.lib.json",
+            "project": "projects/material-confirm/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/material-confirm/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/material-confirm/src/test.ts",
+            "tsConfig": "projects/material-confirm/tsconfig.spec.json",
+            "karmaConfig": "projects/material-confirm/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/material-confirm/tsconfig.lib.json",
+              "projects/material-confirm/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "scroll-here-app"
