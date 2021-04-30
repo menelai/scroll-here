@@ -8,3 +8,7 @@
   <div [ngcScrollHere]="!triggered && s" ngcScrollContainer="html" [ngcScrollDuration]="2000" (ngcScrollTriggered)="triggered = true" (ngcScrollFinished)="toTop = true">joj</div>
 </div>
 
+
+<mat-form-field>
+  <ngc-datetime-picker placeholder="LKL" [(ngModel)]="date" [hasTimePicker]="true" name="lala"></ngc-datetime-picker>
+</mat-form-field>

@@ -6,6 +6,9 @@ import {ScrollHereModule} from 'scroll-here';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import { MaterialConfirmModule } from 'material-confirm';
+import {MaterialDatetimePickerModule} from 'material-datetime-picker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import { MaterialConfirmModule } from 'material-confirm';
   ],
   imports: [
     BrowserModule,
+    MaterialDatetimePickerModule,
     ScrollHereModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialConfirmModule.config({
@@ -24,6 +29,7 @@ import { MaterialConfirmModule } from 'material-confirm';
       },
       width: '400px'
     }),
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

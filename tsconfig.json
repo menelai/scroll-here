@@ -27,6 +27,10 @@
         "dist/material-confirm/material-confirm",
         "dist/material-confirm"
       ],
+      "material-datetime-picker": [
+        "dist/material-datetime-picker/material-datetime-picker",
+        "dist/material-datetime-picker"
+      ],
       "scroll-here": [
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"

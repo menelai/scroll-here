@@ -1,0 +1,17 @@
+.cnt {
+  height: 18px;
+}
+
+.dateinput {
+  width: 80px;
+}
+
+.timeinput {
+  width: 70px;
+}
+
+::ng-deep {
+  .datepicker {
+    max-width: 220px;
+  }
+}

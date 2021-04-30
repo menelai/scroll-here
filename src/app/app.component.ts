@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from './data.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ export class AppComponent implements OnInit {
   s = false;
   triggered = false;
   toTop = false;
+  date = moment();
 
   constructor(private dataService: DataService) {
   }
@@ -27,4 +29,6 @@ export class AppComponent implements OnInit {
       this.dataService.refresh$.next('6');
     }, 2000);
   }
+
+  submit() { }
 }
