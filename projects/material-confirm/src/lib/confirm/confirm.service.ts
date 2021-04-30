@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {MaterialConfirmConfig} from '../material-confirm-config.interface';
 import { config as c } from '../confirm.config';
@@ -26,9 +26,11 @@ export class ConfirmService {
     confirmTitle = this.config?.title || '',
     confirmOk = this.config?.ok || 'ok',
     confirmCancel = this.config?.cancel || 'cancel',
+    config?: MatDialogConfig,
   ): Promise<boolean> {
     return this.dialog.open(ConfirmDialogComponent, {
       ...this.config,
+      ...config,
       closeOnNavigation: true,
       data: {
         title: confirmTitle,

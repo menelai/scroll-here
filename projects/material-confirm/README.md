@@ -57,6 +57,10 @@ Calls confirmation dialog programmatically
     <td><code>confirmCancel?: string</code></td>
     <td>Cancel button text</td>
   </tr>
+  <tr>
+    <td><code>config?: MatDialogConfig</code></td>
+    <td>Override dialog config</td>
+  </tr>
 </table>
 
 <table>
