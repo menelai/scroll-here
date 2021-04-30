@@ -13,7 +13,9 @@
     "validators-prod": "cd projects/validators && npm --no-git-tag-version version patch && ng build validators --prod",
     "validators-publish": "cd dist/validators && npm publish --access=public",
     "base-components-prod": "cd projects/base-components && npm --no-git-tag-version version patch && ng build base-components --prod",
-    "base-components-publish": "cd dist/base-components && npm publish --access=public"
+    "base-components-publish": "cd dist/base-components && npm publish --access=public",
+    "http-request-cache-prod": "cd projects/http-request-cache && npm --no-git-tag-version version patch && ng build http-request-cache --prod",
+    "http-request-cache-publish": "cd dist/http-request-cache && npm publish --access=public"
   },
   "private": true,
   "dependencies": {

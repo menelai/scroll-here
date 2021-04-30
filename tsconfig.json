@@ -19,6 +19,10 @@
         "dist/base-components/base-components",
         "dist/base-components"
       ],
+      "http-request-cache": [
+        "dist/http-request-cache/http-request-cache",
+        "dist/http-request-cache"
+      ],
       "scroll-here": [
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"
