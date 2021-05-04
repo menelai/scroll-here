@@ -23,6 +23,10 @@
         "dist/focus-invalid-input/focus-invalid-input",
         "dist/focus-invalid-input"
       ],
+      "has-unsaved-data": [
+        "dist/has-unsaved-data/has-unsaved-data",
+        "dist/has-unsaved-data"
+      ],
       "http-request-cache": [
         "dist/http-request-cache/http-request-cache",
         "dist/http-request-cache"

@@ -25,7 +25,9 @@
     "datetime-picker:prod": "cd projects/material-datetime-picker && npm --no-git-tag-version version patch && ng build material-datetime-picker --prod",
     "datetime-picker:publish": "cd dist/material-datetime-picker && npm publish --access=public",
     "focus-invalid-input:prod": "cd projects/focus-invalid-input && npm --no-git-tag-version version patch && ng build focus-invalid-input --prod",
-    "focus-invalid-input:publish": "cd dist/focus-invalid-input && npm publish --access=public"
+    "focus-invalid-input:publish": "cd dist/focus-invalid-input && npm publish --access=public",
+    "has-unsaved-data:prod": "cd projects/has-unsaved-data && npm --no-git-tag-version version patch && ng build has-unsaved-data --prod",
+    "has-unsaved-data:publish": "cd dist/has-unsaved-data && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +43,8 @@
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",
     "@kovalenko/base-components": "^0.0.3",
+    "@kovalenko/material-confirm": "^0.1.1",
+    "@ngx-translate/core": "^13.0.0",
     "moment": "^2.29.1",
     "ngx-page-scroll-core": "^7.0.4",
     "rxjs": "~6.6.0",

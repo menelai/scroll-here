@@ -1,0 +1,27 @@
+{
+  "name": "@kovalenko/has-unsaved-data",
+  "version": "1.0.1",
+  "peerDependencies": {
+    "@angular/common": ">=11.0.0",
+    "@angular/core": ">=11.0.0",
+    "@kovalenko/material-confirm": ">=0.0.1",
+    "@ngx-translate/core": ">=13.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/menelai/scroll-here.git"
+  },
+  "keywords": [
+    "angular",
+    "guard",
+    "unsaved"
+  ],
+  "author": "Kovalenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/menelai/scroll-here/issues"
+  }
+}
