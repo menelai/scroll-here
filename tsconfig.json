@@ -19,6 +19,10 @@
         "dist/base-components/base-components",
         "dist/base-components"
       ],
+      "focus-invalid-input": [
+        "dist/focus-invalid-input/focus-invalid-input",
+        "dist/focus-invalid-input"
+      ],
       "http-request-cache": [
         "dist/http-request-cache/http-request-cache",
         "dist/http-request-cache"

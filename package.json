@@ -23,7 +23,9 @@
     "confirm:prod": "cd projects/material-confirm && npm --no-git-tag-version version patch && ng build material-confirm --prod",
     "confirm:publish": "cd dist/material-confirm && npm publish --access=public",
     "datetime-picker:prod": "cd projects/material-datetime-picker && npm --no-git-tag-version version patch && ng build material-datetime-picker --prod",
-    "datetime-picker:publish": "cd dist/material-datetime-picker && npm publish --access=public"
+    "datetime-picker:publish": "cd dist/material-datetime-picker && npm publish --access=public",
+    "focus-invalid-input:prod": "cd projects/focus-invalid-input && npm --no-git-tag-version version patch && ng build focus-invalid-input --prod",
+    "focus-invalid-input:publish": "cd dist/focus-invalid-input && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
