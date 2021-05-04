@@ -39,6 +39,10 @@
         "dist/material-datetime-picker/material-datetime-picker",
         "dist/material-datetime-picker"
       ],
+      "max-length-reached": [
+        "dist/max-length-reached/max-length-reached",
+        "dist/max-length-reached"
+      ],
       "scroll-here": [
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"

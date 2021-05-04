@@ -447,6 +447,46 @@
           }
         }
       }
+    },
+    "max-length-reached": {
+      "projectType": "library",
+      "root": "projects/max-length-reached",
+      "sourceRoot": "projects/max-length-reached/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/max-length-reached/tsconfig.lib.json",
+            "project": "projects/max-length-reached/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/max-length-reached/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/max-length-reached/src/test.ts",
+            "tsConfig": "projects/max-length-reached/tsconfig.spec.json",
+            "karmaConfig": "projects/max-length-reached/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/max-length-reached/tsconfig.lib.json",
+              "projects/max-length-reached/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "scroll-here-app"

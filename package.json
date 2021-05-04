@@ -27,7 +27,9 @@
     "focus-invalid-input:prod": "cd projects/focus-invalid-input && npm --no-git-tag-version version patch && ng build focus-invalid-input --prod",
     "focus-invalid-input:publish": "cd dist/focus-invalid-input && npm publish --access=public",
     "has-unsaved-data:prod": "cd projects/has-unsaved-data && npm --no-git-tag-version version patch && ng build has-unsaved-data --prod",
-    "has-unsaved-data:publish": "cd dist/has-unsaved-data && npm publish --access=public"
+    "has-unsaved-data:publish": "cd dist/has-unsaved-data && npm publish --access=public",
+    "max-length-reached:prod": "cd projects/max-length-reached && npm --no-git-tag-version version patch && ng build max-length-reached --prod",
+    "max-length-reached:publish": "cd dist/max-length-reached && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
