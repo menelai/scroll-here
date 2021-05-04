@@ -32,6 +32,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -480,6 +481,46 @@
             "tsConfig": [
               "projects/max-length-reached/tsconfig.lib.json",
               "projects/max-length-reached/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "bootstrap-confirm": {
+      "projectType": "library",
+      "root": "projects/bootstrap-confirm",
+      "sourceRoot": "projects/bootstrap-confirm/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/bootstrap-confirm/tsconfig.lib.json",
+            "project": "projects/bootstrap-confirm/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/bootstrap-confirm/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/bootstrap-confirm/src/test.ts",
+            "tsConfig": "projects/bootstrap-confirm/tsconfig.spec.json",
+            "karmaConfig": "projects/bootstrap-confirm/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/bootstrap-confirm/tsconfig.lib.json",
+              "projects/bootstrap-confirm/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

@@ -5,30 +5,25 @@ import { AppComponent } from './app.component';
 import {ScrollHereModule} from 'scroll-here';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import { MaterialConfirmModule } from 'material-confirm';
-import {MaterialDatetimePickerModule} from 'material-datetime-picker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
+import {BootstrapConfirmModule} from 'bootstrap-confirm';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    BootstrapConfirmModule.config({
+      ok: 'Окау',
+      cancel: 'Отметить'
+    }),
     BrowserModule,
-    MaterialDatetimePickerModule,
     ScrollHereModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialConfirmModule.config({
-      ok: 'Ok',
-      cancel: 'Cancel',
-      position: {
-        top: '10px'
-      },
-      width: '400px'
-    }),
+
     MatFormFieldModule,
   ],
   providers: [],

@@ -8,9 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "clean": "rimraf dist/material-datetime-picker",
-    "start:app": "wait-on dist/material-datetime-picker/fesm2015 && ng serve --poll 2000",
-    "watch:lib": "ng build material-datetime-picker --watch",
+    "clean": "rimraf dist/bootstrap-confirm",
+    "start:app": "wait-on dist/bootstrap-confirm/fesm2015 && ng serve --poll 2000",
+    "watch:lib": "ng build bootstrap-confirm --watch",
     "watch:all": "npm run clean && npm-run-all watch:lib start:app",
     "scroll:prod": "cd projects/scroll-here && npm --no-git-tag-version version patch && ng build scroll-here --prod",
     "scroll:publish": "cd dist/scroll-here && npm publish --access=public",
@@ -29,7 +29,9 @@
     "has-unsaved-data:prod": "cd projects/has-unsaved-data && npm --no-git-tag-version version patch && ng build has-unsaved-data --prod",
     "has-unsaved-data:publish": "cd dist/has-unsaved-data && npm publish --access=public",
     "max-length-reached:prod": "cd projects/max-length-reached && npm --no-git-tag-version version patch && ng build max-length-reached --prod",
-    "max-length-reached:publish": "cd dist/max-length-reached && npm publish --access=public"
+    "max-length-reached:publish": "cd dist/max-length-reached && npm publish --access=public",
+    "bootstrap-confirm:prod": "cd projects/bootstrap-confirm && npm --no-git-tag-version version patch && ng build bootstrap-confirm --prod",
+    "bootstrap-confirm:publish": "cd dist/bootstrap-confirm && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -46,7 +48,9 @@
     "@angular/router": "~11.2.6",
     "@kovalenko/base-components": "^0.0.3",
     "@kovalenko/material-confirm": "^0.1.1",
+    "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "@ngx-translate/core": "^13.0.0",
+    "bootstrap": "^4.6.0",
     "moment": "^2.29.1",
     "ngx-page-scroll-core": "^7.0.4",
     "rxjs": "~6.6.0",

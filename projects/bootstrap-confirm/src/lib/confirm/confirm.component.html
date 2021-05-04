@@ -1,0 +1,6 @@
+<div class="modal-body pw" [innerHTML]="message"></div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-dark" type="button" (click)="modal.dismiss()">{{ cancel }}</button>
+  <button class="btn btn-primary" type="button" (click)="modal.close()" ngbAutofocus>{{ ok }}</button>
+</div>

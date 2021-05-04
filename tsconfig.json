@@ -19,6 +19,10 @@
         "dist/base-components/base-components",
         "dist/base-components"
       ],
+      "bootstrap-confirm": [
+        "dist/bootstrap-confirm/bootstrap-confirm",
+        "dist/bootstrap-confirm"
+      ],
       "focus-invalid-input": [
         "dist/focus-invalid-input/focus-invalid-input",
         "dist/focus-invalid-input"
