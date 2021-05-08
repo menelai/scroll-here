@@ -8,9 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "clean": "rimraf dist/bootstrap-confirm",
-    "start:app": "wait-on dist/bootstrap-confirm/fesm2015 && ng serve --poll 2000",
-    "watch:lib": "ng build bootstrap-confirm --watch",
+    "clean": "rimraf dist/main-menu",
+    "start:app": "wait-on dist/main-menu/fesm2015 && ng serve --poll 2000",
+    "watch:lib": "ng build main-menu --watch",
     "watch:all": "npm run clean && npm-run-all watch:lib start:app",
     "scroll:prod": "cd projects/scroll-here && npm --no-git-tag-version version patch && ng build scroll-here --prod",
     "scroll:publish": "cd dist/scroll-here && npm publish --access=public",
@@ -31,7 +31,9 @@
     "max-length-reached:prod": "cd projects/max-length-reached && npm --no-git-tag-version version patch && ng build max-length-reached --prod",
     "max-length-reached:publish": "cd dist/max-length-reached && npm publish --access=public",
     "bootstrap-confirm:prod": "cd projects/bootstrap-confirm && npm --no-git-tag-version version patch && ng build bootstrap-confirm --prod",
-    "bootstrap-confirm:publish": "cd dist/bootstrap-confirm && npm publish --access=public"
+    "bootstrap-confirm:publish": "cd dist/bootstrap-confirm && npm publish --access=public",
+    "main-menu:prod": "cd projects/main-menu && npm --no-git-tag-version version patch && ng build main-menu --prod",
+    "main-menu:publish": "cd dist/main-menu && npm publish --access=public"
   },
   "private": true,
   "dependencies": {

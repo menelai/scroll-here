@@ -35,6 +35,10 @@
         "dist/http-request-cache/http-request-cache",
         "dist/http-request-cache"
       ],
+      "main-menu": [
+        "dist/main-menu/main-menu",
+        "dist/main-menu"
+      ],
       "material-confirm": [
         "dist/material-confirm/material-confirm",
         "dist/material-confirm"
