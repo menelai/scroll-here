@@ -55,6 +55,10 @@
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"
       ],
+      "translatable-title": [
+        "dist/translatable-title/translatable-title",
+        "dist/translatable-title"
+      ],
       "validators": [
         "dist/validators/validators",
         "dist/validators"

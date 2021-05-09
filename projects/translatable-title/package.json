@@ -1,0 +1,12 @@
+{
+  "name": "@kovalenko/translatable-title",
+  "version": "0.0.3",
+  "peerDependencies": {
+    "@angular/common": ">=11.0.0",
+    "@angular/core": ">=11.0.0",
+    "@ngx-translate/core": ">=13.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}
