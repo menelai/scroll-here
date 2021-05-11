@@ -1,0 +1,24 @@
+{
+  "name": "@kovalenko/print-element",
+  "version": "0.0.2",
+  "peerDependencies": {
+    "@angular/common": ">=11.0.0",
+    "@angular/core": ">=11.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/menelai/scroll-here.git"
+  },
+  "keywords": [
+    "angular",
+    "print"
+  ],
+  "author": "Kovalenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/menelai/scroll-here/issues"
+  }
+}

@@ -528,6 +528,86 @@
           }
         }
       }
+    },
+    "drag-scroll": {
+      "projectType": "library",
+      "root": "projects/drag-scroll",
+      "sourceRoot": "projects/drag-scroll/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/drag-scroll/tsconfig.lib.json",
+            "project": "projects/drag-scroll/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/drag-scroll/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/drag-scroll/src/test.ts",
+            "tsConfig": "projects/drag-scroll/tsconfig.spec.json",
+            "karmaConfig": "projects/drag-scroll/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/drag-scroll/tsconfig.lib.json",
+              "projects/drag-scroll/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "print-element": {
+      "projectType": "library",
+      "root": "projects/print-element",
+      "sourceRoot": "projects/print-element/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/print-element/tsconfig.lib.json",
+            "project": "projects/print-element/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/print-element/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/print-element/src/test.ts",
+            "tsConfig": "projects/print-element/tsconfig.spec.json",
+            "karmaConfig": "projects/print-element/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/print-element/tsconfig.lib.json",
+              "projects/print-element/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "scroll-here-app"

@@ -23,6 +23,10 @@
         "dist/bootstrap-confirm/bootstrap-confirm",
         "dist/bootstrap-confirm"
       ],
+      "drag-scroll": [
+        "dist/drag-scroll/drag-scroll",
+        "dist/drag-scroll"
+      ],
       "focus-invalid-input": [
         "dist/focus-invalid-input/focus-invalid-input",
         "dist/focus-invalid-input"
@@ -50,6 +54,10 @@
       "max-length-reached": [
         "dist/max-length-reached/max-length-reached",
         "dist/max-length-reached"
+      ],
+      "print-element": [
+        "dist/print-element/print-element",
+        "dist/print-element"
       ],
       "scroll-here": [
         "dist/scroll-here/scroll-here",

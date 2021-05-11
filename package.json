@@ -35,7 +35,11 @@
     "main-menu:prod": "cd projects/main-menu && npm --no-git-tag-version version patch && ng build main-menu --prod",
     "main-menu:publish": "cd dist/main-menu && npm publish --access=public",
     "translatable-title:prod": "cd projects/translatable-title && npm --no-git-tag-version version patch && ng build translatable-title --prod",
-    "translatable-title:publish": "cd dist/translatable-title && npm publish --access=public"
+    "translatable-title:publish": "cd dist/translatable-title && npm publish --access=public",
+    "drag-scroll:prod": "cd projects/drag-scroll && npm --no-git-tag-version version patch && ng build drag-scroll --prod",
+    "drag-scroll:publish": "cd dist/drag-scroll && npm publish --access=public",
+    "print-element:prod": "cd projects/print-element && npm --no-git-tag-version version patch && ng build print-element --prod",
+    "print-element:publish": "cd dist/print-element && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
