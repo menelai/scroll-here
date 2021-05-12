@@ -1,12 +1,13 @@
 {
-  "name": "@kovalenko/print-element",
+  "name": "@kovalenko/ng-fingerprint",
   "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": ">=11.0.0",
     "@angular/core": ">=11.0.0"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "fingerprintjs2": "^2.1.4"
   },
   "repository": {
     "type": "git",
@@ -14,7 +15,8 @@
   },
   "keywords": [
     "angular",
-    "print"
+    "fingerprint",
+    "service"
   ],
   "author": "Kovalenko",
   "license": "MIT",

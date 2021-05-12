@@ -55,6 +55,10 @@
         "dist/max-length-reached/max-length-reached",
         "dist/max-length-reached"
       ],
+      "ng-fingerprint": [
+        "dist/ng-fingerprint/ng-fingerprint",
+        "dist/ng-fingerprint"
+      ],
       "print-element": [
         "dist/print-element/print-element",
         "dist/print-element"

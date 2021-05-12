@@ -39,7 +39,9 @@
     "drag-scroll:prod": "cd projects/drag-scroll && npm --no-git-tag-version version patch && ng build drag-scroll --prod",
     "drag-scroll:publish": "cd dist/drag-scroll && npm publish --access=public",
     "print-element:prod": "cd projects/print-element && npm --no-git-tag-version version patch && ng build print-element --prod",
-    "print-element:publish": "cd dist/print-element && npm publish --access=public"
+    "print-element:publish": "cd dist/print-element && npm publish --access=public",
+    "ng-fingerprint:prod": "cd projects/ng-fingerprint && npm --no-git-tag-version version patch && ng build ng-fingerprint --prod",
+    "ng-fingerprint:publish": "cd dist/ng-fingerprint && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +61,7 @@
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "@ngx-translate/core": "^13.0.0",
     "bootstrap": "^4.6.0",
+    "fingerprintjs2": "^2.1.4",
     "moment": "^2.29.1",
     "ngx-page-scroll-core": "^7.0.4",
     "rxjs": "~6.6.0",
@@ -72,6 +75,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cross-env": "^7.0.3",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.1.0",
