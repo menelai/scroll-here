@@ -1,6 +1,6 @@
 # Validators
 
-min, max, match
+match
 
 ## Installation
 
@@ -9,26 +9,6 @@ npm install @kovalenko/validators
 ```
 
 ## Supported API
-
-### Min
-
-Selector: `[ngcMin][type=number]`
-
-Validates input minimal value
-
-Name | Description
---- | ---
-`@Input() ngcMin: number` | Minimal value
-
-### Max
-
-Validates input maximal value
-
-Selector: `[ngcMax][type=number]`
-
-Name | Description
---- | ---
-`@Input() ngcMax: number` | Maximal value
 
 ### Match
 
@@ -60,24 +40,6 @@ import { AppComponent } from './app';
 export class AppModule {}
 
 platformBrowserDynamic().bootstrapModule(AppModule);
-```
-
-In this example, errors will be shown when **num** is lower than 0 or greater than 20
-
-```typescript
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app',
-  template: `
-    <input type="number" name="num" [(ngModel)]="num" [ngcMin]="0" [ngcMax]="20" #numModel="ngModel">
-    <div *ngIf="numModel.hasError('ngcMin')">Invalid min</div>
-    <div *ngIf="numModel.hasError('ngcMax')">Invalid max</div>
-  `,
-})
-export class AppComponent {
-  num = 10;
-}
 ```
 
 In this example, errors will be shown when pass1 and pass2 do not match
