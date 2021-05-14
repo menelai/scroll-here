@@ -249,6 +249,46 @@
         }
       }
     },
+    "main-menu": {
+      "projectType": "library",
+      "root": "projects/main-menu",
+      "sourceRoot": "projects/main-menu/src",
+      "prefix": "ngc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/main-menu/tsconfig.lib.json",
+            "project": "projects/main-menu/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/main-menu/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/main-menu/src/test.ts",
+            "tsConfig": "projects/main-menu/tsconfig.spec.json",
+            "karmaConfig": "projects/main-menu/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/main-menu/tsconfig.lib.json",
+              "projects/main-menu/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "http-request-cache": {
       "projectType": "library",
       "root": "projects/http-request-cache",

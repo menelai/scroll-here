@@ -57,7 +57,7 @@ export class MainMenuService {
     while (route.firstChild) {
       route = route.firstChild;
     }
-    if (route.data && route.data.title) {
+    if (route.data?.pageTitle || route.data?.title) {
       this.titleService.setTitle(route.data.pageTitle || route.data.title);
     }
   }
