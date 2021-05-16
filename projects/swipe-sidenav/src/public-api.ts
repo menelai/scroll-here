@@ -94,7 +94,7 @@ export class SwipeableSidenav implements DoCheck {
         return;
       }
 
-      if (Math.abs(this.swipeInfo.x2 - this.swipeInfo.x1) > 5) {
+      if (this.sideNav?.opened && Math.abs(this.swipeInfo.x2 - this.swipeInfo.x1) > 5) {
         // if the user has moved more than 5 pixels x then they're swiping
         this.swipeInfo.scrolling = false;
         // disable scrolling
