@@ -77,7 +77,7 @@ export class SwipeableSidenav implements DoCheck {
    * Touch end cleans up the scroll disabling.
    */
   private bodyTouchMove(event: TouchEvent): void {
-    if (this.swipeInfo.scrolling) {
+    if (this.swipeInfo.scrolling || !this.sideNav?.opened) {
       // if we're scrolling then ignore these events
       return;
     }
@@ -94,7 +94,7 @@ export class SwipeableSidenav implements DoCheck {
         return;
       }
 
-      if (this.sideNav?.opened && Math.abs(this.swipeInfo.x2 - this.swipeInfo.x1) > 5) {
+      if (Math.abs(this.swipeInfo.x2 - this.swipeInfo.x1) > 5) {
         // if the user has moved more than 5 pixels x then they're swiping
         this.swipeInfo.scrolling = false;
         // disable scrolling
