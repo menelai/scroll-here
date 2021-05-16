@@ -67,6 +67,10 @@
         "dist/scroll-here/scroll-here",
         "dist/scroll-here"
       ],
+      "swipe-sidenav": [
+        "dist/swipe-sidenav/swipe-sidenav",
+        "dist/swipe-sidenav"
+      ],
       "translatable-title": [
         "dist/translatable-title/translatable-title",
         "dist/translatable-title"

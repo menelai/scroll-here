@@ -41,7 +41,9 @@
     "print-element:prod": "cd projects/print-element && npm --no-git-tag-version version patch && ng build print-element --prod",
     "print-element:publish": "cd dist/print-element && npm publish --access=public",
     "ng-fingerprint:prod": "cd projects/ng-fingerprint && npm --no-git-tag-version version patch && ng build ng-fingerprint --prod",
-    "ng-fingerprint:publish": "cd dist/ng-fingerprint && npm publish --access=public"
+    "ng-fingerprint:publish": "cd dist/ng-fingerprint && npm publish --access=public",
+    "swipe-sidenav:prod": "cd projects/swipe-sidenav && npm --no-git-tag-version version patch && ng build swipe-sidenav --prod",
+    "swipe-sidenav:publish": "cd dist/swipe-sidenav && npm publish --access=public"
   },
   "private": true,
   "dependencies": {

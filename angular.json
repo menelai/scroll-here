@@ -688,6 +688,46 @@
           }
         }
       }
+    },
+    "swipe-sidenav": {
+      "projectType": "library",
+      "root": "projects/swipe-sidenav",
+      "sourceRoot": "projects/swipe-sidenav/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/swipe-sidenav/tsconfig.lib.json",
+            "project": "projects/swipe-sidenav/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/swipe-sidenav/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/swipe-sidenav/src/test.ts",
+            "tsConfig": "projects/swipe-sidenav/tsconfig.spec.json",
+            "karmaConfig": "projects/swipe-sidenav/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/swipe-sidenav/tsconfig.lib.json",
+              "projects/swipe-sidenav/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "scroll-here-app"
