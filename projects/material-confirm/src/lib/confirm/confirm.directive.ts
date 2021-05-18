@@ -14,7 +14,10 @@ export class ConfirmDirective {
 
   constructor(private confirmService: ConfirmService) { }
 
-  @HostListener('click') async onClick(): Promise<void> {
+  @HostListener('click', ['$event']) async onClick(e: MouseEvent): Promise<void> {
+    e.preventDefault();
+    e.stopPropagation();
+
     const promise = this.confirmService.confirm(this.confirmMessage, this.confirmTitle, this.confirmOk, this.confirmCancel);
     if (await promise) {
       this.confirm.emit();
