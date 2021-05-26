@@ -13,6 +13,8 @@ import {MainMenuTitleService} from 'main-menu';
 import {RouterModule} from '@angular/router';
 import { R1Component } from './r1/r1.component';
 import { R2Component } from './r2/r2.component';
+import {NgFingerprintModule} from 'ng-fingerprint';
+import {NgFingerprintService} from 'ng-fingerprint';
 
 class Joj {
   setTitle(title: string) {
@@ -36,7 +38,7 @@ class Joj {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
+    NgFingerprintModule,
     MatFormFieldModule,
     MainMenuModule/*.config({
       provide: MainMenuTitleService,
@@ -62,4 +64,8 @@ class Joj {
   providers: [Title],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private ngFingerprintService: NgFingerprintService) {
+    ngFingerprintService.fingerprint$.subscribe(console.log);
+  }
+}

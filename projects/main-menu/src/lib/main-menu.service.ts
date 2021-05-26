@@ -28,7 +28,7 @@ export class MainMenuService {
 
   private _createMenu(level: Routes, target: MainMenuItem[] = this.items, path: string[] = []) {
     level.forEach(item => {
-      if (item.path?.match(/:|\?/g) || !item.data) {
+      if (item.path?.match(/:|\?/g) || !item.data?.title) {
         return;
       }
       const current = {
