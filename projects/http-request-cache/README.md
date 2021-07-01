@@ -52,6 +52,22 @@ export class DataService {
 }
 ```
 
+### Unsubscribe internal ReplaySubject when there are no subscribers
+
+```typescript
+@Injectable()
+export class DataService {
+  constructor(private http: HttpClient) { }
+
+  @HttpRequestCache<DataService>(dataService => ({
+    refCount: true // set refCount to true to unsubscribe cache
+  }))
+  list(): Observable<any> {
+    return this.http.get('assets/angular.json');
+  }
+}
+```
+
 ### Custom cache storage
 
 ```typescript

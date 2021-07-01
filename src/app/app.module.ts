@@ -38,7 +38,14 @@ class Joj {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgFingerprintModule,
+    NgFingerprintModule.config([
+      'cpuClass',
+      'deviceMemory',
+      'hardwareConcurrency',
+      'osCpu',
+      'platform',
+      'vendor'
+    ]),
     MatFormFieldModule,
     MainMenuModule/*.config({
       provide: MainMenuTitleService,
