@@ -12,6 +12,11 @@ export class FocusInvalidInputDirective {
       const invalidControl = this.el.nativeElement.querySelector('mat-form-field.ng-invalid input.ng-invalid');
       if (invalidControl) {
         invalidControl.click();
+      } else {
+        const invalidCheckbox = this.el.nativeElement.querySelector('mat-checkbox.ng-invalid input');
+        if (invalidCheckbox) {
+          invalidCheckbox.focus();
+        }
       }
     }, 100);
   }
