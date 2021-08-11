@@ -38,6 +38,7 @@ export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> i
   timeControl = new FormControl();
   @ViewChild('timeinput') timeinput: any;
   @Input() hasTimePicker = false;
+  @Input() defaultTime = 0;
   @Output() dateChange = new EventEmitter<moment.Moment>();
 
   constructor(
@@ -154,7 +155,7 @@ export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> i
     this.ngControl?.control?.markAsTouched();
 
 
-    let seconds = 0;
+    let seconds = this.defaultTime;
     if (this.timeControl.value) {
       seconds = moment(this.timeControl.value, 'HH:mm').diff(moment().startOf('day'), 's');
     }

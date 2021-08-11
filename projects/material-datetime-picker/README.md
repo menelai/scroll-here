@@ -14,14 +14,15 @@ Selector: `ngc-datetime-picker`
 
 Пикер даты и времени. MatFormFieldControl
 
-Наименование | Описание
+Title | Description
 --- | ---
-`@Input() ngModel: Moment` | Дата
-`@Input() min: Moment` | Минимальная дата
-`@Input() max: Moment` | Максимальная дата
-`@Input() hasTimePicker: boolean` | Флаг инпута времени
-`@Output() ngModelChange: EventEmitter<Moment>` | Изменение ngModel
-`@Output() dateChange: EventEmitter<Moment>` | Изменение даты пользователем
+`@Input() ngModel: Moment` | Date
+`@Input() min: Moment` | Min date
+`@Input() max: Moment` | Max date
+`@Input() hasTimePicker: boolean` | Time input
+`@Input() defaultTime: number` | Default time offset in seconds
+`@Output() ngModelChange: EventEmitter<Moment>` | ngModel change
+`@Output() dateChange: EventEmitter<Moment>` | User date change
 
 
 ## Usage
