@@ -23,6 +23,10 @@
         "dist/bootstrap-confirm/bootstrap-confirm",
         "dist/bootstrap-confirm"
       ],
+      "color-picker": [
+        "dist/color-picker/color-picker",
+        "dist/color-picker"
+      ],
       "drag-scroll": [
         "dist/drag-scroll/drag-scroll",
         "dist/drag-scroll"

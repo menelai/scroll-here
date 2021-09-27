@@ -11,8 +11,8 @@ export class DataService {
   refresh$ = new Subject<string>();
   constructor(private http: HttpClient) { }
 
-  @HttpRequestCache<DataService>((o, id: string) => ({
-    refreshOn: o.refresh$.pipe(filter(v => v === id))
+  @HttpRequestCache<DataService>(dataService => ({
+    refreshOn: dataService.refresh$
   }))
   list(id: string): Observable<any> {
     return this.http.get('assets/angular.json', {params: {id}});

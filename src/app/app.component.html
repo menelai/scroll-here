@@ -1,13 +1,6 @@
-<!--<div style="height: 300px; overflow-y: auto" #scroller [ngcScrollHere]="toTop" [ngcScrollDuration]="4000" (ngcScrollFinished)="s = true">
-  <div style="height:1000px"></div>
-  <div [ngcScrollContainer]="scroller" [ngcScrollHere]="true">lal</div>
-</div>-->
-<button (confirm)="s = true" confirmMessage="<p>Confirm</p>kak">Scroll</button>
-
-<div style="padding-top: 3000px" [ngcScrollHere]="toTop" [ngcScrollDuration]="4000">
-  <div [ngcScrollHere]="!triggered && s" ngcScrollContainer="html" [ngcScrollDuration]="2000" (ngcScrollTriggered)="triggered = true" (ngcScrollFinished)="toTop = true">joj</div>
-</div>
-
-
-
-<router-outlet></router-outlet>
+<form>
+<mat-form-field>
+  <ngc-color-picker [placeholder]="'JOOA'" [(ngModel)]="color" [required]="true" name="dsfdf"></ngc-color-picker>
+  <mat-error>dfdf</mat-error>
+</mat-form-field>
+</form>

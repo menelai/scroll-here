@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   triggered = false;
   toTop = false;
   date = moment();
+  color!: string;
 
   constructor(private dataService: DataService, private mainMenu: MainMenuService) {
   }

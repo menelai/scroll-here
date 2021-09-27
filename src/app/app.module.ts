@@ -15,6 +15,7 @@ import { R1Component } from './r1/r1.component';
 import { R2Component } from './r2/r2.component';
 import {NgFingerprintModule} from 'ng-fingerprint';
 import {NgFingerprintService} from 'ng-fingerprint';
+import {ColorPickerModule} from 'color-picker';
 
 class Joj {
   setTitle(title: string) {
@@ -38,6 +39,7 @@ class Joj {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ColorPickerModule,
     NgFingerprintModule.config([
       'cpuClass',
       'deviceMemory',

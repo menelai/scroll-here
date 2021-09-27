@@ -1,0 +1,51 @@
+:host {
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    > div {
+      flex: 1;
+    }
+
+    &:not(:hover) {
+      button {
+        opacity: 0.1;
+      }
+    }
+  }
+}
+
+input[type=color] {
+  height: 15px;
+  -webkit-appearance: none;
+  border: none;
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  &::-webkit-color-swatch {
+    border: none;
+  }
+}
+.op0 {
+  opacity: 0;
+}
+
+button {
+  margin-top: -5px;
+  margin-bottom: -5px;
+}
+
+button.mat-icon-button {
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  display: block;
+  .mat-icon {
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    display: block;
+    font-size: 15px;
+  }
+}

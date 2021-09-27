@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rimraf dist/ng-fingerprint",
-    "start:app": "wait-on dist/ng-fingerprint/fesm2015 && ng serve --poll 2000",
-    "watch:lib": "ng build ng-fingerprint --watch",
+    "start:app": "wait-on dist/color-picker/fesm2015 && ng serve --poll 2000",
+    "watch:lib": "ng build color-picker --watch",
     "watch:all": "npm run clean && npm-run-all watch:lib start:app",
     "scroll:prod": "cd projects/scroll-here && npm --no-git-tag-version version patch && ng build scroll-here --prod",
     "scroll:publish": "cd dist/scroll-here && npm publish --access=public",
@@ -43,7 +43,9 @@
     "ng-fingerprint:prod": "cd projects/ng-fingerprint && npm --no-git-tag-version version patch && ng build ng-fingerprint --prod",
     "ng-fingerprint:publish": "cd dist/ng-fingerprint && npm publish --access=public",
     "swipe-sidenav:prod": "cd projects/swipe-sidenav && npm --no-git-tag-version version patch && ng build swipe-sidenav --prod",
-    "swipe-sidenav:publish": "cd dist/swipe-sidenav && npm publish --access=public"
+    "swipe-sidenav:publish": "cd dist/swipe-sidenav && npm publish --access=public",
+    "color-picker:prod": "cd projects/color-picker && npm --no-git-tag-version version patch && ng build color-picker --prod",
+    "color-picker:publish": "cd dist/color-picker && npm publish --access=public"
   },
   "private": true,
   "dependencies": {

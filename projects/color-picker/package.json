@@ -1,0 +1,27 @@
+{
+  "name": "@kovalenko/material-color-picker",
+  "version": "0.0.5",
+  "peerDependencies": {
+    "@angular/common": ">=11.0.0",
+    "@angular/core": ">=11.0.0",
+    "@angular/material": ">=11.0.0"
+  },
+  "dependencies": {
+    "@kovalenko/base-components": "^0.0.3",
+    "tslib": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/menelai/scroll-here.git"
+  },
+  "keywords": [
+    "angular",
+    "material",
+    "colorpicker"
+  ],
+  "author": "Kovalenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/menelai/scroll-here/issues"
+  }
+}
