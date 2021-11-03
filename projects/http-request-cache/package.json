@@ -1,6 +1,6 @@
 {
   "name": "@kovalenko/http-request-cache",
-  "version": "0.1.7",
+  "version": "0.1.10",
   "peerDependencies": {
     "rxjs": ">=6.6.0"
   },

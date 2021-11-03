@@ -5,8 +5,6 @@ import {DefaultStorage} from './default-storage';
 
 type HttpRequestCacheMethod = (...args: any[]) => Observable<any>;
 
-const defaultStorage = new DefaultStorage();
-
 export const HttpRequestCache = <T extends Record<string, any>>(optionsHandler?: (obj: T, ...args: any[]) => HttpCacheOptions) => {
   return (target: T, methodName: string, descriptor: TypedPropertyDescriptor<HttpRequestCacheMethod>): TypedPropertyDescriptor<HttpRequestCacheMethod> => {
     if (!(descriptor?.value instanceof Function)) {
@@ -19,7 +17,11 @@ export const HttpRequestCache = <T extends Record<string, any>>(optionsHandler?:
     descriptor.value = function(...args: any[]): Observable<any> {
       const options = optionsHandler?.call(this as T, this as T, ...args);
 
-      const storage = options?.storage ?? defaultStorage;
+      if (!options?.storage && !(target as any)._____storage_____) {
+        (target as any)._____storage_____ = new DefaultStorage();
+      }
+
+      const storage = options?.storage ?? (target as any)._____storage_____;
       const refreshOn = options?.refreshOn ?? NEVER as Observable<unknown>;
 
       const key = `${cacheKeyPrefix}_${JSON.stringify(args)}`;
