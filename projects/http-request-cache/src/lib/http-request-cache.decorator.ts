@@ -31,7 +31,7 @@ export const HttpRequestCache = <T extends Record<string, any>>(optionsHandler?:
       if (!observable) {
         observable = refreshOn.pipe(
           startWith(true),
-          switchMap(() => originalMethod.apply(this, args)),
+          switchMap(() => originalMethod.apply(this, [...args])),
           shareReplay({
             bufferSize: 1,
             refCount: options?.refCount ?? false,
