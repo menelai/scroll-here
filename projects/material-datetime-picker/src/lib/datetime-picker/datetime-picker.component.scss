@@ -1,5 +1,5 @@
 .cnt {
-  height: 18px;
+  height: 1.125em;
 }
 
 .dateinput {
@@ -13,5 +13,12 @@
 ::ng-deep {
   .datepicker {
     max-width: 220px;
+  }
+}
+
+.onhover.b18 {
+  margin: -0.5em 0;
+  mat-icon {
+    display: block;
   }
 }
