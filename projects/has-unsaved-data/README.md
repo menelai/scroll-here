@@ -1,6 +1,7 @@
 # HasUnsavedData
 
-Provides a router guard preventing route deactivation, if the component has dirty form
+Provides a router guard preventing route deactivation, 
+if the component\`s method `hasUnsavedData()` returns `true`
 
 ## Installation
 
@@ -8,7 +9,7 @@ Provides a router guard preventing route deactivation, if the component has dirt
 npm install @kovalenko/has-unsaved-data
 ```
 
-First, import the ScrollHereModule to your module:
+First, import the `HasUnsavedDataModule` to your module:
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -27,7 +28,7 @@ export class AppModule {}
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-Then, import HasUnsavedDataGuard to your routing module:
+Then, import `HasUnsavedDataGuard` to your routing module:
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -51,9 +52,14 @@ const routes: Routes = [
 export class ProfileRoutingModule { }
 ```
 
-Finally, extend your component from ComponentCanDeactivate:
+Finally, decorate your component with `@CheckUnsavedData()` and implement `ComponentCanDeactivate` interface:
 
 ```typescript
+import {CheckUnsavedData} from '@kovalenko/has-unsaved-data';
+import {ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+
+@CheckUnsavedData()
 @Component({
   selector: 'app',
   template: `
@@ -62,12 +68,15 @@ Finally, extend your component from ComponentCanDeactivate:
   `,
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent extends ComponentCanDeactivate {
+export class ProfilePageComponent implements ComponentCanDeactivate {
+  @ViewChild('form') form: NgForm;
+
   // ...
+  hasUnsavedData(): boolean {
+    return this.form.dirty;
+  }
 }
 ```
-
-Note: the component must have one form tag exported to #form="ngForm"
 
 ## License
 
