@@ -1,7 +1,8 @@
 # HasUnsavedData
 
 Provides a router guard preventing route deactivation, 
-if the component\`s method `hasUnsavedData()` returns `true`
+if the component\`s method decorated with `@CheckUnsavedData()` returns `true`.
+Also it prevents the window to be unloaded.
 
 ## Installation
 
@@ -31,8 +32,8 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 Then, import `HasUnsavedDataGuard` to your routing module:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {HasUnsavedDataGuard} from '@kovalenko/has-unsaved-data';
 
@@ -52,7 +53,7 @@ const routes: Routes = [
 export class ProfileRoutingModule { }
 ```
 
-Finally, decorate your component with `@CheckUnsavedData()` and implement `ComponentCanDeactivate` interface:
+Finally, decorate your component\`s method with `@CheckUnsavedData()`:
 
 ```typescript
 import {CheckUnsavedData} from '@kovalenko/has-unsaved-data';

@@ -1,6 +1,6 @@
 {
   "name": "@kovalenko/has-unsaved-data",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "peerDependencies": {
     "@angular/common": ">=11.0.0",
     "@angular/core": ">=11.0.0",
