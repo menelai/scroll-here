@@ -3,6 +3,7 @@ import {DataService} from './data.service';
 import * as moment from 'moment';
 import {MainMenuService} from 'main-menu';
 import {take} from 'rxjs/operators';
+import {UnsavedDataChecker} from 'has-unsaved-data';
 
 @Component({
   selector: 'app-root',
@@ -43,4 +44,9 @@ export class AppComponent implements OnInit {
   }
 
   submit() { }
+
+  @UnsavedDataChecker()
+  has(): boolean {
+    return true;
+  }
 }

@@ -59,7 +59,6 @@ import {CheckUnsavedData} from '@kovalenko/has-unsaved-data';
 import {ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
-@CheckUnsavedData()
 @Component({
   selector: 'app',
   template: `
@@ -68,10 +67,10 @@ import {NgForm} from '@angular/forms';
   `,
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements ComponentCanDeactivate {
+export class ProfilePageComponent {
   @ViewChild('form') form: NgForm;
 
-  // ...
+  @CheckUnsavedData()
   hasUnsavedData(): boolean {
     return this.form.dirty;
   }
