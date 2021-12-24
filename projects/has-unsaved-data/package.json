@@ -1,11 +1,10 @@
 {
   "name": "@kovalenko/has-unsaved-data",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "peerDependencies": {
-    "@angular/common": ">=11.0.0",
-    "@angular/core": ">=11.0.0",
-    "@kovalenko/material-confirm": ">=0.0.1",
-    "@ngx-translate/core": ">=13.0.0"
+    "@angular/common": ">=13.0.0",
+    "@angular/core": ">=13.0.0",
+    "rxjs": ">=7.4.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

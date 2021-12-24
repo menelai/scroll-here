@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UnsavedDataChecker} from 'has-unsaved-data';
 
 @Component({
   selector: 'app-r2',
@@ -9,7 +10,16 @@ export class R2Component implements OnInit {
 
   constructor() { }
 
+  @UnsavedDataChecker()
+  has(): boolean {
+    return false;
+  }
+
   ngOnInit(): void {
+  }
+
+  jaj(): string {
+    return 'jop';
   }
 
 }

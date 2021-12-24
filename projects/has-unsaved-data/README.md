@@ -13,18 +13,40 @@ npm install @kovalenko/has-unsaved-data
 First, import the `HasUnsavedDataModule` to your module:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HasUnsavedDataModule } from '@kovalenko/has-unsaved-data';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppComponent } from './app';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HasUnsavedDataModule, HasUnsavedDataConfirmService, UnsavedDataConfig} from '@kovalenko/has-unsaved-data';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {AppComponent} from './app';
 
 @NgModule({
-  imports: [BrowserModule, HasUnsavedDataModule],
+  imports: [
+    BrowserModule,
+    HasUnsavedDataModule.config({
+      confirmService: {
+        provide: HasUnsavedDataConfirmService,
+        useExisting: ConfirmService, // your favorite confirm service 
+      },
+      title: 'Default confirm title', // optional
+      message: 'Default message', // optional
+      ok: 'Default ok button', // optional
+      cancel: 'Default cancel button', // optional
+    })
+  ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  // Optionally change default UnsavedDataConfig in runtime
+  constructor(
+    @Inject(unsavedDataConfig) private config: UnsavedDataConfig
+  ) {
+    setTimeout(() => {
+      config.cancel = 'CANCEL';
+      config.ok = 'OKAY';
+    }, 1000);
+  }
+}
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
@@ -75,6 +97,37 @@ export class ProfilePageComponent {
   hasUnsavedData(): boolean {
     return this.form.dirty;
   }
+}
+```
+
+Optionally override defaults:
+
+```typescript
+import {CheckUnsavedData} from '@kovalenko/has-unsaved-data';
+import {ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
+
+@Component({
+  selector: 'app',
+  template: `
+    <form #form="ngForm">
+    </form>
+  `,
+  styleUrls: ['./profile-page.component.scss']
+})
+export class ProfilePageComponent {
+  @ViewChild('form') form: NgForm;
+
+  constructor(private translate: TranslateService) { }
+
+  @CheckUnsavedData<ProfilePageComponent>(o => ({
+    message: o.translate.instant('Custom confirmation message')
+  }))
+  hasUnsavedData(): boolean {
+    return this.form.dirty;
+  }
+
 }
 ```
 

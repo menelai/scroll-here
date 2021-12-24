@@ -1,24 +1,33 @@
-import { NgModule } from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {HasUnsavedDataGuard} from './has-unsaved-data.guard';
-import {MaterialConfirmModule} from '@kovalenko/material-confirm';
+import {ModuleConfig} from './module-config';
+import {unsavedDataConfig} from './unsaved-data.config';
 
 @NgModule({
   declarations: [],
-  imports: [
-    MaterialConfirmModule.config({
-      width: '520px',
-      panelClass: ['confirm-dialog-container'],
-      disableClose: true,
-      ok: 'Ok',
-      cancel: 'Cancel',
-      position: {
-        top: '10px'
-      },
-    }),
-  ],
+  imports: [],
   exports: [],
   providers: [
     HasUnsavedDataGuard
   ]
 })
-export class HasUnsavedDataModule { }
+export class HasUnsavedDataModule {
+  static config(config: ModuleConfig): ModuleWithProviders<HasUnsavedDataModule> {
+    return {
+      ngModule: HasUnsavedDataModule,
+      providers: [
+        config.confirmService,
+        {
+          provide: unsavedDataConfig,
+          useValue: {
+            message: config.message ?? 'There is unsaved data',
+            title: config.title,
+            ok: config.ok ?? 'Ok',
+            cancel: config.cancel ?? 'Cancel',
+          }
+        },
+        HasUnsavedDataGuard
+      ],
+    };
+  }
+}

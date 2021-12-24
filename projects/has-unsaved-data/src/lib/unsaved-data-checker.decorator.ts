@@ -1,16 +1,19 @@
-import {Component} from '@angular/core';
+import {UnsavedDataConfig} from './unsaved-data-config.interface';
 
-export function UnsavedDataChecker(): MethodDecorator {
+export const UnsavedDataChecker = <T extends Record<string, any>>(optionsHandler?: (obj: T) => UnsavedDataConfig): MethodDecorator => {
   return (target: Record<string, any>, methodName, descriptor) => {
     if (target.constructor.prototype.____UnsavedDataChecker____) {
       throw new Error('There can be only one @UnsavedDataChecker() in a class');
     }
 
     target.constructor.prototype.____UnsavedDataChecker____ = methodName;
+    target.constructor.prototype.____UnsavedDataOptionsHandler____ = optionsHandler;
 
     function beforeUnload(e: Event): void {
       // @ts-ignore
-      e.returnValue = this[methodName]();
+      if (this[methodName]()) {
+        e.returnValue = true;
+      }
     }
 
     let binded: (e: Event) => void;
