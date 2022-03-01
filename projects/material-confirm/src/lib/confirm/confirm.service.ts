@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
 import {MaterialConfirmConfig} from '../material-confirm-config.interface';
 import { config as c } from '../confirm.config';
@@ -9,6 +9,7 @@ import {firstValueFrom} from 'rxjs';
   providedIn: 'root'
 })
 export class ConfirmService {
+  private dialogInstance?: MatDialogRef<ConfirmDialogComponent, any>;
 
   constructor(
     @Inject(c) private config: MaterialConfirmConfig,
@@ -29,7 +30,7 @@ export class ConfirmService {
     confirmCancel = this.config?.cancel || 'cancel',
     config?: MatDialogConfig,
   ): Promise<boolean> {
-    const dialog = this.dialog.open(ConfirmDialogComponent, {
+    this.dialogInstance = this.dialog.open(ConfirmDialogComponent, {
       ...this.config,
       ...config,
       closeOnNavigation: true,
@@ -43,6 +44,10 @@ export class ConfirmService {
       }
     });
 
-    return firstValueFrom(dialog.afterClosed());
+    return firstValueFrom(this.dialogInstance.afterClosed());
+  }
+
+  cancel(): void {
+    this.dialogInstance?.close();
   }
 }
