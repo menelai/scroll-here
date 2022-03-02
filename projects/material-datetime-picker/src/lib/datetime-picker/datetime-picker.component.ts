@@ -3,7 +3,7 @@ import {FormControl, NgControl, NgForm, ValidationErrors, Validator, ValidatorFn
 import {DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import * as moment from 'moment';
+import moment from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {BaseInputComponent} from '@kovalenko/base-components';
 
@@ -34,6 +34,7 @@ import {BaseInputComponent} from '@kovalenko/base-components';
   ]
 })
 export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> implements Validator, AfterViewInit, OnDestroy {
+  hourCycle = Intl.DateTimeFormat(navigator.language,  {hour: 'numeric'}).resolvedOptions().hour12 ? 'h12' : 'h24';
   dateControl = new FormControl();
   timeControl = new FormControl();
   @ViewChild('timeinput') timeinput: any;

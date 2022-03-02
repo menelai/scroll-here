@@ -1,6 +1,6 @@
 {
   "name": "@kovalenko/material-datetime-picker",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "peerDependencies": {
     "@angular/cdk": ">=11.0.0",
     "@angular/common": ">=11.0.0",

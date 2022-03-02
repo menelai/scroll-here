@@ -8,6 +8,9 @@
 
 .timeinput {
   width: 70px;
+  &.h12 {
+    width: 100px;
+  }
 }
 
 ::ng-deep {

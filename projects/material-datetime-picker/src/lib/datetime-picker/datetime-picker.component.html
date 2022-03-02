@@ -5,7 +5,7 @@
            matInput maxlength="2000" type="text">
     <mat-datepicker #dp (close)="closeCalendar()" [disabled]="disabled"></mat-datepicker>
     <div *ngIf="ngModel && hasTimePicker" class="f timepicker ml8">
-      <input #timeinput (input)="update()" [formControl]="timeControl" class="timeinput" matInput type="time">
+      <input #timeinput (input)="update()" [formControl]="timeControl" class="timeinput" matInput type="time" [ngClass]="hourCycle">
     </div>
   </div>
   <button *ngIf="ngModel" [disabled]="disabled" (click)="clearDate($event)" class="onhover b18" mat-icon-button type="button">

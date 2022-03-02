@@ -16,6 +16,9 @@ import {HasUnsavedDataConfirmService} from 'has-unsaved-data';
 import {ConfirmService} from 'material-confirm';
 import {unsavedDataConfig} from 'has-unsaved-data';
 import {UnsavedDataConfig} from 'has-unsaved-data';
+import {
+  MaterialDatetimePickerModule
+} from 'material-datetime-picker';
 
 class Joj {
   setTitle(title: string) {
@@ -30,6 +33,7 @@ class Joj {
     R2Component
   ],
   imports: [
+    MaterialDatetimePickerModule,
     MaterialConfirmModule.config({
       ok: 'Окау',
       cancel: 'Отметить'
