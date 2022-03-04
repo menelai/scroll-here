@@ -34,7 +34,7 @@ import {BaseInputComponent} from '@kovalenko/base-components';
   ]
 })
 export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> implements Validator, AfterViewInit, OnDestroy {
-  hourCycle = Intl.DateTimeFormat(navigator.language,  {hour: 'numeric'}).resolvedOptions().hour12 ? 'h12' : 'h24';
+  hourCycle = ['AM', 'PM'].includes((new Date(64_800_000)).toLocaleTimeString().slice(-2).toUpperCase()) ? 'h12' : 'h24';
   dateControl = new FormControl();
   timeControl = new FormControl();
   @ViewChild('timeinput') timeinput: any;
