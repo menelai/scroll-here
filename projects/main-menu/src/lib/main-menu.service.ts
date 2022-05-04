@@ -6,9 +6,9 @@ import {MainMenuTitleService} from './main-menu-title-service';
 import {Title} from '@angular/platform-browser';
 
 @Injectable()
-export class MainMenuService {
+export class MainMenuService<T = any> {
 
-  public readonly items: MainMenuItem[] = [];
+  public readonly items: MainMenuItem<T>[] = [];
   private titleService = this.title2 || this.title1;
   constructor(
     private route: ActivatedRoute,

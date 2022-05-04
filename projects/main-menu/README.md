@@ -112,7 +112,7 @@ import {MainMenuService} from '@kovalenko/main-menu';
 })
 export class AppComponent {
   readonly items = this.mainMenuService.items;
-  constructor(private mainMenuService: MainMenuService) { }
+  constructor(private mainMenuService: MainMenuService<string[]>) { }
 }
 ```
 
