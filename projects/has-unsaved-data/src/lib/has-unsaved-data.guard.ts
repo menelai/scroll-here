@@ -13,7 +13,6 @@ export class HasUnsavedDataGuard implements CanDeactivate<Type<any>> {
     private confirm: HasUnsavedDataConfirmService,
   ) {}
 
-
   canDeactivate(component: any, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Promise<boolean> | boolean {
     const methodName = component.constructor.prototype.____UnsavedDataChecker____;
     if (component?.[methodName] && component[methodName]()) {
