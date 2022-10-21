@@ -3,5 +3,8 @@
   "dest": "../../dist/material-confirm",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@kovalenko/mat-dialog-drag-bounds"
+  ]
 }

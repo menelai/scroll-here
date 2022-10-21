@@ -8,6 +8,8 @@ import {CommonModule} from '@angular/common';
 import {MaterialConfirmConfig} from './material-confirm-config.interface';
 import { config } from './confirm.config';
 import {A11yModule} from '@angular/cdk/a11y';
+import {MatDialogDragBoundsModule} from '@kovalenko/mat-dialog-drag-bounds';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import {A11yModule} from '@angular/cdk/a11y';
   imports: [
     MatDialogModule,
     MatButtonModule,
+    DragDropModule,
+    MatDialogDragBoundsModule,
     A11yModule,
     CommonModule
   ],

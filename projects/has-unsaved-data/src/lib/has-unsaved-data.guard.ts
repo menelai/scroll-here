@@ -17,12 +17,12 @@ export class HasUnsavedDataGuard implements CanDeactivate<Type<any>> {
     const methodName = component.constructor.prototype.____UnsavedDataChecker____;
     if (component?.[methodName] && component[methodName]()) {
       const params: UnsavedDataConfig = component.____UnsavedDataOptionsHandler____ ? component.____UnsavedDataOptionsHandler____.call(component, component) : null;
-      return this.confirm.confirm(
+      return (this.confirm.confirm(
         params?.message ?? this.config.message ?? '',
         params?.title ?? this.config.title,
         params?.ok ?? this.config.ok,
         params?.cancel ?? this.config.cancel,
-      );
+      ) as Promise<boolean>).then(v => !!v);
     } else {
       return true;
     }
