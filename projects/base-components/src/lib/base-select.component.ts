@@ -1,20 +1,23 @@
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import {ControlValueAccessor, FormControl, NgControl, NgForm} from '@angular/forms';
-import {Directive, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Directive, DoCheck, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 @Directive()
-// tslint:disable-next-line:directive-class-suffix
 export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy {
   @ViewChild('matinput', {static: true}) select!: MatSelect;
   @Output() ngModelChange = new EventEmitter<T>();
   @Output() selectionChange = new EventEmitter<T>();
   @Output() readonly valueChange: EventEmitter<T> = new EventEmitter<T>();
-  ngControl!: NgControl;
+
+  ngControl = inject(NgControl, {optional: true, self: true});
+
   errorState!: boolean;
+
+  stateChanges = new Subject<void>();
 
   protected _placeholder!: string;
   protected _required = false;
@@ -22,12 +25,15 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
   protected _type!: string;
   protected _id!: string;
   protected _ngModel!: T;
-  stateChanges = new Subject<void>();
 
-  constructor(
-    private _parentForm: NgForm,
-    private _defaultErrorStateMatcher: ErrorStateMatcher,
-  ) {}
+  protected _parentForm = inject(NgForm, {optional: true});
+  protected _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+
+  constructor() {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   ngOnInit() {}
 
