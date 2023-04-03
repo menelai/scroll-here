@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Optional, Output, Self, ViewChild } from '@angular/core';
-import {FormControl, NgControl, NgForm, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
-import {DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import {FormControl, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import moment from 'moment';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import {BaseInputComponent} from '@kovalenko/base-components';
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'ngc-datetime-picker',
@@ -13,7 +13,7 @@ import {BaseInputComponent} from '@kovalenko/base-components';
   styleUrls: ['./datetime-picker.component.scss'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ru'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: DateAdapter, useClass: LuxonDateAdapter, deps: [MAT_DATE_LOCALE]},
     {
       provide: MAT_DATE_FORMATS, useValue: {
         parse: {
@@ -33,45 +33,33 @@ import {BaseInputComponent} from '@kovalenko/base-components';
     }
   ]
 })
-export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> implements Validator, AfterViewInit, OnDestroy {
+export class DatetimePickerComponent extends BaseInputComponent<DateTime | null> implements Validator, AfterViewInit, OnDestroy {
   hourCycle = ['AM', 'PM'].includes((new Date(64_800_000)).toLocaleTimeString().slice(-2).toUpperCase()) ? 'h12' : 'h24';
   dateControl = new FormControl();
   timeControl = new FormControl();
   @ViewChild('timeinput') timeinput: any;
   @Input() hasTimePicker = false;
   @Input() defaultTime = 0;
-  @Output() dateChange = new EventEmitter<moment.Moment>();
+  @Output() dateChange = new EventEmitter<DateTime | null>();
 
-  constructor(
-    @Optional() @Self() public ngControl: NgControl,
-    @Optional() _parentForm: NgForm,
-    _defaultErrorStateMatcher: ErrorStateMatcher,
-  ) {
-    super(_parentForm, _defaultErrorStateMatcher);
+  private _min!: DateTime | null;
 
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
-  }
-
-  private _min!: moment.Moment;
-
-  get min(): moment.Moment {
+  get min(): DateTime | null {
     return this._min;
   }
 
-  @Input() set min(v: moment.Moment) {
-    this._min = v && moment(v);
+  @Input() set min(v: DateTime | null) {
+    this._min = v;
   }
 
-  private _max!: moment.Moment;
+  private _max!: DateTime | null;
 
-  get max(): moment.Moment {
+  get max(): DateTime | null {
     return this._max;
   }
 
-  @Input() set max(v: moment.Moment) {
-    this._max = v && moment(v);
+  @Input() set max(v: DateTime | null) {
+    this._max = v;
   }
 
   @Input()
@@ -84,13 +72,16 @@ export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> i
     this.stateChanges.next();
   }
 
-  get ngModel(): moment.Moment {
+  get ngModel(): DateTime | null {
     return this._ngModel;
   }
 
-  set ngModel(v: moment.Moment) {
+  set ngModel(v: DateTime | null) {
+    if (v != null && !DateTime.isDateTime(v)) {
+      throw new Error('Value is not a DateTime');
+    }
     this._ngModel = v;
-    this.timeControl.setValue(v ? moment(v).format('HH:mm') : '');
+    this.timeControl.setValue(v?.toFormat('HH:mm') ?? '');
     this.dateControl.setValue(v);
   }
 
@@ -104,7 +95,7 @@ export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> i
 
   ngAfterViewInit(): void {
     if (this.ngControl && this.ngControl.control) {
-      this.ngControl.control.setValidators(this.validate.bind(this) as ValidatorFn);
+      this.ngControl.control.setValidators(this.validate as ValidatorFn);
     }
     this.onDisabledChange(this.disabled);
   }
@@ -155,22 +146,20 @@ export class DatetimePickerComponent extends BaseInputComponent<moment.Moment> i
     this.ngControl?.control?.markAsDirty();
     this.ngControl?.control?.markAsTouched();
 
-
     let seconds = this.defaultTime;
     if (this.timeControl.value) {
-      seconds = moment(this.timeControl.value, 'HH:mm').diff(moment().startOf('day'), 's');
+      seconds = DateTime.fromFormat(this.timeControl.value, 'HH:mm').diff(DateTime.now().startOf('day')).as('second');
     }
 
-    this._ngModel = this.dateControl.value && moment(this.dateControl.value).startOf('day').add(seconds, 's') || undefined;
+    this._ngModel = this.dateControl.value ? this.dateControl.value.startOf('day').add(seconds, 's') : null;
     this.ngModelChange.emit(this._ngModel);
     this.dateChange.emit(this._ngModel);
   }
 
-  validate(c: FormControl): ValidationErrors | null {
-    if (this._min && this._ngModel && moment(this._ngModel).isBefore(this._min)) {
+  validate = (c: FormControl): ValidationErrors | null => {
+    if (this._min != null && this._ngModel != null && this._ngModel < this._min) {
       return {min: this._min};
-    }
-    if (this._max && this._ngModel && moment(this._ngModel).isAfter(this._max)) {
+    } else if (this._max != null && this._ngModel != null && this._ngModel > this._max) {
       return {max: this._max};
     }
 
