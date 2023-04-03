@@ -1,4 +1,4 @@
 <router-outlet></router-outlet>
 <mat-form-field>
-  <ngc-datetime-picker [hasTimePicker]="true"></ngc-datetime-picker>
+  <ngc-datetime-picker [min]="min" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" [hasTimePicker]="true"></ngc-datetime-picker>
 </mat-form-field>

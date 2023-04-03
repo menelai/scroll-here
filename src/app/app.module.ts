@@ -6,16 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
-import {MaterialConfirmModule} from 'material-confirm';
 import {RouterModule} from '@angular/router';
 import { R1Component } from './r1/r1.component';
 import { R2Component } from './r2/r2.component';
-import {ColorPickerModule} from 'color-picker';
-import {HasUnsavedDataGuard, HasUnsavedDataModule} from 'has-unsaved-data';
-import {HasUnsavedDataConfirmService} from 'has-unsaved-data';
-import {ConfirmService} from 'material-confirm';
-import {unsavedDataConfig} from 'has-unsaved-data';
-import {UnsavedDataConfig} from 'has-unsaved-data';
 import {
   MaterialDatetimePickerModule
 } from 'material-datetime-picker';
@@ -34,21 +27,12 @@ class Joj {
   ],
   imports: [
     MaterialDatetimePickerModule,
-    MaterialConfirmModule.config({
-      ok: 'Окау',
-      cancel: 'Отметить'
-    }),
+
     BrowserModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    HasUnsavedDataModule.config({
-      confirmService: {
-        provide: HasUnsavedDataConfirmService,
-        useExisting: ConfirmService,
-      },
-    }),
-    ColorPickerModule,
+
     MatFormFieldModule,
     RouterModule.forRoot([
       {
@@ -61,7 +45,7 @@ class Joj {
       {
         path: 'r2',
         component: R2Component,
-        canDeactivate: [HasUnsavedDataGuard],
+        canDeactivate: [],
         data: {
           title: 'joj'
         }
@@ -72,13 +56,5 @@ class Joj {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(
-    @Inject(unsavedDataConfig) private config: UnsavedDataConfig
-  ) {
-    setTimeout(() => {
-      config.cancel = 'JOPA';
-      config.ok = 'OKAY';
-      console.log('rea');
-    }, 1000);
-  }
+
 }

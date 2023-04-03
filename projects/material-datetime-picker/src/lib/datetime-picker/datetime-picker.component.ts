@@ -17,13 +17,13 @@ import {DateTime} from 'luxon';
     {
       provide: MAT_DATE_FORMATS, useValue: {
         parse: {
-          dateInput: 'DD.MM.YYYY'
+          dateInput: 'DD.MM.yyyy'
         },
         display: {
-          dateInput: 'DD.MM.YYYY',
-          monthYearLabel: 'MMM YYYY',
-          dateA11yLabel: 'DD.MM.YYYY',
-          monthYearA11yLabel: 'MMMM YYYY'
+          dateInput: 'dd.MM.yyyy',
+          monthYearLabel: 'MMM yyyy',
+          dateA11yLabel: 'DD.MM.yyyy',
+          monthYearA11yLabel: 'MMMM yyyy'
         }
       }
     },
@@ -35,7 +35,7 @@ import {DateTime} from 'luxon';
 })
 export class DatetimePickerComponent extends BaseInputComponent<DateTime | null> implements Validator, AfterViewInit, OnDestroy {
   hourCycle = ['AM', 'PM'].includes((new Date(64_800_000)).toLocaleTimeString().slice(-2).toUpperCase()) ? 'h12' : 'h24';
-  dateControl = new FormControl();
+  dateControl = new FormControl<DateTime | null>(null);
   timeControl = new FormControl();
   @ViewChild('timeinput') timeinput: any;
   @Input() hasTimePicker = false;
@@ -151,7 +151,8 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
       seconds = DateTime.fromFormat(this.timeControl.value, 'HH:mm').diff(DateTime.now().startOf('day')).as('second');
     }
 
-    this._ngModel = this.dateControl.value ? this.dateControl.value.startOf('day').add(seconds, 's') : null;
+    console.log(this.dateControl.value);
+    this._ngModel = this.dateControl.value ? this.dateControl.value.startOf('day').plus({seconds}) : null;
     this.ngModelChange.emit(this._ngModel);
     this.dateChange.emit(this._ngModel);
   }

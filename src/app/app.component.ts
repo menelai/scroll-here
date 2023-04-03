@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import * as moment from 'moment';
-import {take} from 'rxjs/operators';
-import {UnsavedDataChecker} from 'has-unsaved-data';
+import {DateTime} from "luxon";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +10,9 @@ export class AppComponent implements OnInit {
   s = false;
   triggered = false;
   toTop = false;
-  date = moment();
+  date: DateTime | null = DateTime.now();
+
+  min = DateTime.fromISO('2023-04-04');
   color!: string;
 
   constructor() {

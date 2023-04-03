@@ -599,5 +599,8 @@
       }
     }
   },
-  "defaultProject": "scroll-here-app"
+  "defaultProject": "scroll-here-app",
+  "cli": {
+    "analytics": false
+  }
 }
