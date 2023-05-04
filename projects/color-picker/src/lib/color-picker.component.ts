@@ -1,8 +1,7 @@
-import {Component, forwardRef, Input, OnDestroy, OnInit, Optional, Self} from '@angular/core';
+import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {MatFormFieldControl} from '@angular/material/form-field';
 import {BaseInputComponent} from '@kovalenko/base-components';
-import {FormControl, NgControl, NgForm} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {FormControl} from '@angular/forms';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Subscription} from 'rxjs';
 
@@ -27,12 +26,8 @@ import {Subscription} from 'rxjs';
 })
 export class ColorPickerComponent extends BaseInputComponent<string> implements OnInit, OnDestroy {
   control = new FormControl();
-  private subs: Subscription;
 
   @Input()
-  get disabled(): boolean {
-    return this._disabled;
-  }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     if (this._disabled) {
@@ -43,16 +38,23 @@ export class ColorPickerComponent extends BaseInputComponent<string> implements 
     this.stateChanges.next();
   }
 
-  constructor(
-    @Optional() @Self() public ngControl: NgControl,
-    @Optional() _parentForm: NgForm,
-    _defaultErrorStateMatcher: ErrorStateMatcher,
-  ) {
-    super(_parentForm, _defaultErrorStateMatcher);
+  get disabled(): boolean {
+    return this._disabled;
+  }
 
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
+  set ngModel(v: string) {
+    this._ngModel = v;
+    this.control.setValue(v);
+  }
+
+  get ngModel(): string {
+    return this._ngModel;
+  }
+
+  private subs: Subscription;
+
+  constructor() {
+    super();
 
     this.subs = this.control.valueChanges.subscribe(next => {
       this._ngModel = next;
@@ -60,16 +62,8 @@ export class ColorPickerComponent extends BaseInputComponent<string> implements 
     });
   }
 
-  onDestroy(): void {
+  ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  get ngModel(): string {
-    return this._ngModel;
-  }
-  set ngModel(v: string) {
-    this._ngModel = v;
-    this.control.setValue(v);
   }
 
   onContainerClick(event: MouseEvent) {

@@ -1,13 +1,26 @@
-import {Directive, DoCheck, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  Directive,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {ControlValueAccessor, FormControl, NgControl, NgForm} from '@angular/forms';
 import { Subject} from 'rxjs';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatInput} from '@angular/material/input';
 
 @Directive()
 export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy {
-  @ViewChild('matinput', {static: true}) input!: any;
+  @ViewChild('matinput', {static: true}) input!: ElementRef;
+  @ViewChild('matinput', {static: true, read: MatInput}) matInput!: MatInput;
 
   @Output() ngModelChange = new EventEmitter<T>();
 
@@ -24,7 +37,7 @@ export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAcces
   protected _id!: string;
   protected _ngModel!: T;
 
-  stateChanges = new Subject<void>();
+  stateChanges!: Subject<void>;
 
   protected _parentForm = inject(NgForm, {optional: true});
   protected _defaultErrorStateMatcher = inject(ErrorStateMatcher);
@@ -35,7 +48,10 @@ export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAcces
     }
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.stateChanges = this.matInput.stateChanges;
+    this.stateChanges.next();
+  }
 
   ngDoCheck() {
     if (this.ngControl) {
@@ -77,21 +93,21 @@ export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAcces
   get placeholder(): string { return this._placeholder; }
   set placeholder(value: string) {
     this._placeholder = value;
-    this.stateChanges.next();
+    this.stateChanges?.next();
   }
 
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
-    this.stateChanges.next();
+    this.stateChanges?.next();
   }
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
-    this.stateChanges.next();
+    this.stateChanges?.next();
   }
 
 

@@ -17,7 +17,7 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
 
   errorState!: boolean;
 
-  stateChanges = new Subject<void>();
+  stateChanges!: Subject<void>;
 
   protected _placeholder!: string;
   protected _required = false;
@@ -35,7 +35,10 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
     }
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.stateChanges = this.select.stateChanges;
+    this.stateChanges.next();
+  }
 
   ngDoCheck() {
     if (this.ngControl) {
@@ -77,21 +80,21 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
   get placeholder(): string { return this._placeholder; }
   set placeholder(value: string) {
     this._placeholder = value;
-    this.stateChanges.next();
+    this.stateChanges?.next();
   }
 
   @Input()
   get required(): boolean { return this._required; }
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
-    this.stateChanges.next();
+    this.stateChanges?.next();
   }
 
   @Input()
   get disabled(): boolean { return this._disabled; }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
-    this.stateChanges.next();
+    this.stateChanges?.next();
   }
 
   onContainerClick(event: MouseEvent): void {
