@@ -38,9 +38,9 @@ export class MainMenuService<T = any> {
       } as MainMenuItem;
       target.push(current);
 
-      if (item.children) {
+      if (item.children || item.data.children) {
         current.children = [];
-        this._createMenu(item.children, current.children, current.routerLink);
+        this._createMenu(item.children ?? item.data.children, current.children, current.routerLink);
         if (current.children.length === 0) {
           delete current.children;
         }
