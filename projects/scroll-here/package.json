@@ -1,8 +1,8 @@
 {
   "name": "@kovalenko/scroll-here",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "peerDependencies": {
-    "ngx-page-scroll-core": ">=7",
+    "ngx-page-scroll-core": ">=10",
     "@angular/common": ">=11.0.0",
     "@angular/core": ">=11.0.0"
   },
