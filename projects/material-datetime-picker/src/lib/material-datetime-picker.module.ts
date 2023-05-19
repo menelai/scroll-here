@@ -8,8 +8,6 @@ import {A11yModule} from '@angular/cdk/a11y';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 
-
-
 @NgModule({
   declarations: [
     DatetimePickerComponent

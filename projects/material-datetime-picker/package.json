@@ -1,17 +1,17 @@
 {
   "name": "@kovalenko/material-datetime-picker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "peerDependencies": {
-    "@angular/cdk": ">=15.0.0",
-    "@angular/common": ">=15.0.0",
-    "@angular/core": ">=15.0.0",
-    "@angular/material": ">=15.0.0",
-    "@angular/material-moment-adapter": ">=15.0.0",
+    "@angular/cdk": ">=14.0.0",
+    "@angular/common": ">=14.0.0",
+    "@angular/core": ">=14.0.0",
+    "@angular/material": ">=14.0.0",
+    "@angular/material-moment-adapter": ">=14.0.0",
     "moment": ">=2"
   },
   "bundleDependencies": false,
   "dependencies": {
-    "@kovalenko/base-components": "^0.0.3",
+    "@kovalenko/base-components": "^2.0.3",
     "tslib": "^2.0.0"
   },
   "repository": {
