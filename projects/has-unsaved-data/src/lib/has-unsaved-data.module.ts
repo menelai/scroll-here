@@ -1,16 +1,8 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {HasUnsavedDataGuard} from './has-unsaved-data.guard';
 import {ModuleConfig} from './module-config';
-import {unsavedDataConfig} from './unsaved-data.config';
+import {UNSAVED_DATA_CONFIG} from './unsaved-data.config';
 
-@NgModule({
-  declarations: [],
-  imports: [],
-  exports: [],
-  providers: [
-    HasUnsavedDataGuard
-  ]
-})
+@NgModule()
 export class HasUnsavedDataModule {
   static config(config: ModuleConfig): ModuleWithProviders<HasUnsavedDataModule> {
     return {
@@ -18,7 +10,7 @@ export class HasUnsavedDataModule {
       providers: [
         config.confirmService,
         {
-          provide: unsavedDataConfig,
+          provide: UNSAVED_DATA_CONFIG,
           useValue: {
             message: config.message ?? 'There is unsaved data',
             title: config.title,
@@ -26,7 +18,6 @@ export class HasUnsavedDataModule {
             cancel: config.cancel ?? 'Cancel',
           }
         },
-        HasUnsavedDataGuard
       ],
     };
   }

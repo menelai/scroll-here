@@ -7,7 +7,7 @@ Also it prevents the window to be unloaded.
 ## Installation
 
 ```
-npm install @kovalenko/has-unsaved-data
+npm i @kovalenko/has-unsaved-data
 ```
 
 First, import the `HasUnsavedDataModule` to your module:
@@ -15,7 +15,7 @@ First, import the `HasUnsavedDataModule` to your module:
 ```typescript
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HasUnsavedDataModule, HasUnsavedDataConfirmService, UnsavedDataConfig} from '@kovalenko/has-unsaved-data';
+import {HasUnsavedDataModule, HasUnsavedDataConfirmService, UnsavedDataConfig, UNSAVED_DATA_CONFIG} from '@kovalenko/has-unsaved-data';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {AppComponent} from './app';
 
@@ -39,7 +39,7 @@ import {AppComponent} from './app';
 export class AppModule {
   // Optionally change default UnsavedDataConfig in runtime
   constructor(
-    @Inject(unsavedDataConfig) private config: UnsavedDataConfig
+    @Inject(UNSAVED_DATA_CONFIG) private config: UnsavedDataConfig
   ) {
     setTimeout(() => {
       config.cancel = 'CANCEL';
@@ -57,14 +57,14 @@ Then, import `HasUnsavedDataGuard` to your routing module:
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ProfilePageComponent} from './profile-page/profile-page.component';
-import {HasUnsavedDataGuard} from '@kovalenko/has-unsaved-data';
+import {hasUnsavedDataGuard} from '@kovalenko/has-unsaved-data';
 
 
 const routes: Routes = [
   {
     path: 'profile',
     component: ProfilePageComponent,
-    canDeactivate: [HasUnsavedDataGuard]
+    canDeactivate: [hasUnsavedDataGuard]
   },
 ];
 

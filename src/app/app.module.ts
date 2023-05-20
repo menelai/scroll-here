@@ -9,9 +9,9 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { R1Component } from './r1/r1.component';
 import { R2Component } from './r2/r2.component';
-import {
-  MaterialDatetimePickerModule
-} from 'material-datetime-picker';
+import {HasUnsavedDataConfirmService, hasUnsavedDataGuard, HasUnsavedDataModule} from 'has-unsaved-data';
+import {ConfirmService, MaterialConfirmModule} from '@kovalenko/material-confirm';
+
 
 class Joj {
   setTitle(title: string) {
@@ -26,8 +26,22 @@ class Joj {
     R2Component
   ],
   imports: [
-    MaterialDatetimePickerModule,
-
+    MaterialConfirmModule.config({
+      width: '520px',
+      panelClass: ['confirm-dialog-container'],
+      disableClose: true,
+      ok: 'Ok',
+      cancel: 'Cancel',
+      position: {
+        top: '10px',
+      },
+    }),
+    HasUnsavedDataModule.config({
+      confirmService: {
+        provide: HasUnsavedDataConfirmService,
+        useExisting: ConfirmService,
+      },
+    }),
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -45,7 +59,7 @@ class Joj {
       {
         path: 'r2',
         component: R2Component,
-        canDeactivate: [],
+        canDeactivate: [hasUnsavedDataGuard],
         data: {
           title: 'joj'
         }
