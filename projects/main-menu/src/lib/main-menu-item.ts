@@ -3,6 +3,7 @@ export interface MainMenuItem<T = any> {
   href?: string;
   target?: string;
   routerLink?: string[];
+  queryParams?: Record<string, any>;
   expanded?: boolean;
   access?: T;
   children?: MainMenuItem[];

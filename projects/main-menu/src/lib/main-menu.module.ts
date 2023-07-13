@@ -4,15 +4,9 @@ import {MainMenuService} from './main-menu.service';
 import {MainMenuTitleService} from './main-menu-title-service';
 import {Title} from '@angular/platform-browser';
 
-const router = RouterModule.forChild([]);
-
 @NgModule({
-  declarations: [
-  ],
   imports: [
-    router
-  ],
-  exports: [
+    RouterModule.forChild([])
   ],
   providers: [
     MainMenuService

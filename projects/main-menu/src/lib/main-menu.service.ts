@@ -21,7 +21,7 @@ export class MainMenuService<T = any> {
     this._updateTitle();
     this.router.events.pipe(
       filter(event => event instanceof ActivationEnd)
-    ).subscribe(event => {
+    ).subscribe(() => {
       this._updateTitle();
     });
   }
@@ -34,6 +34,7 @@ export class MainMenuService<T = any> {
       const current = {
         name: item.data.title,
         routerLink: [...path, item.redirectTo ? item.redirectTo : item.path],
+        queryParams: item.data?.queryParams ?? null,
         access: item.data.access || false,
       } as MainMenuItem;
       target.push(current);
@@ -48,7 +49,7 @@ export class MainMenuService<T = any> {
     });
   }
 
-  private async _updateTitle() {
+  private _updateTitle() {
     this.items.forEach(item => {
       item.expanded = item.expanded || this.router.url.includes(item.routerLink?.join('/') ?? '');
     });
