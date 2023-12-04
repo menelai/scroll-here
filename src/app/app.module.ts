@@ -3,7 +3,7 @@ import {BrowserModule, Title} from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
@@ -11,6 +11,8 @@ import { R1Component } from './r1/r1.component';
 import { R2Component } from './r2/r2.component';
 import {HasUnsavedDataConfirmService, hasUnsavedDataGuard, HasUnsavedDataModule} from 'has-unsaved-data';
 import {ConfirmService, MaterialConfirmModule} from '@kovalenko/material-confirm';
+import { MaterialDatetimePickerModule } from 'material-datetime-picker';
+import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 
 
 class Joj {
@@ -26,6 +28,7 @@ class Joj {
     R2Component
   ],
   imports: [
+    TranslateModule.forRoot(),
     MaterialConfirmModule.config({
       width: '520px',
       panelClass: ['confirm-dialog-container'],
@@ -46,7 +49,7 @@ class Joj {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
+    MaterialDatetimePickerModule,
     MatFormFieldModule,
     RouterModule.forRoot([
       {
@@ -70,5 +73,18 @@ class Joj {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(
+    private translate: TranslateService,
+  ) {
+    translate.onLangChange.subscribe(lang => {
+      console.log(lang, '!!!!');
+    });
 
+    this.translate.use('en');
+
+    setTimeout(() => {
+      this.translate.use('ru');
+    }, 2000);
+
+  }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
@@ -6,16 +6,26 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import {BaseInputComponent} from '@kovalenko/base-components';
 import {DateTime} from 'luxon';
+import {TranslateService} from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'ngc-datetime-picker',
   templateUrl: './datetime-picker.component.html',
   styleUrls: ['./datetime-picker.component.scss'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ru'},
-    {provide: DateAdapter, useClass: LuxonDateAdapter, deps: [MAT_DATE_LOCALE]},
     {
-      provide: MAT_DATE_FORMATS, useValue: {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'en'
+    },
+    {
+      provide: DateAdapter,
+      useClass: LuxonDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
         parse: {
           dateInput: 'DD.MM.yyyy'
         },
@@ -33,7 +43,7 @@ import {DateTime} from 'luxon';
     }
   ]
 })
-export class DatetimePickerComponent extends BaseInputComponent<DateTime | null> implements Validator, AfterViewInit, OnDestroy {
+export class DatetimePickerComponent extends BaseInputComponent<DateTime | null> implements Validator, OnInit, AfterViewInit, OnDestroy {
   hourCycle = ['AM', 'PM'].includes((new Date(64_800_000)).toLocaleTimeString().slice(-2).toUpperCase()) ? 'h12' : 'h24';
   dateControl = new FormControl<DateTime | null>(null);
   timeControl = new FormControl();
@@ -43,6 +53,7 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
   @Output() dateChange = new EventEmitter<DateTime | null>();
 
   private _min!: DateTime | null;
+  private langSubs?: Subscription;
 
   get min(): DateTime | null {
     return this._min;
@@ -93,6 +104,22 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     return document.activeElement === this.input.nativeElement || this.timeinput != null && document.activeElement === this.timeinput.nativeElement;
   }
 
+  constructor(
+    private dateAdapter: DateAdapter<DateTime>,
+    private translate: TranslateService,
+  ) {
+    super();
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    this.dateAdapter.setLocale(this.translate.currentLang);
+    this.langSubs = this.translate.onLangChange.subscribe(lang => {
+      this.dateAdapter.setLocale(lang.lang);
+    });
+  }
+
   ngAfterViewInit(): void {
     if (this.ngControl && this.ngControl.control) {
       this.ngControl.control.setValidators(this.validate as ValidatorFn);
@@ -100,7 +127,9 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     this.onDisabledChange(this.disabled);
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    this.langSubs?.unsubscribe();
+  }
 
   protected onDisabledChange(v: boolean): void {
     if (v) {

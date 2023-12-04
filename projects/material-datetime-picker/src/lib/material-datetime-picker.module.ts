@@ -7,7 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {A11yModule} from '@angular/cdk/a11y';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatDatepickerModule,
     MatIconModule,
     A11yModule,
-    CommonModule
+    CommonModule,
   ],
   exports: [
     DatetimePickerComponent

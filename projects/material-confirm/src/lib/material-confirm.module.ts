@@ -10,6 +10,7 @@ import { config } from './confirm.config';
 import {A11yModule} from '@angular/cdk/a11y';
 import {MatDialogDragBoundsModule} from '@kovalenko/mat-dialog-drag-bounds';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     DragDropModule,
     MatDialogDragBoundsModule,
     A11yModule,
-    CommonModule
+    CommonModule,
+    TranslateModule,
   ],
   exports: [
     ConfirmDirective
