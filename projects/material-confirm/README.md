@@ -33,7 +33,7 @@ Calls confirmation dialog programmatically
 
 <table>
   <tr>
-    <th colspan="2"><code>confirm: Promise&lt;boolean&gt;</code></th>
+    <th colspan="2"><code>confirm: Promise&lt;boolean | any&gt;</code></th>
   </tr>
   <tr>
     <td colspan="2">Action confirm</td>
@@ -61,6 +61,10 @@ Calls confirmation dialog programmatically
     <td><code>config?: MatDialogConfig</code></td>
     <td>Override dialog config</td>
   </tr>
+<tr>
+    <td><code>actions?: {value: any, title: string}[]</code></td>
+    <td>Additional action buttons</td>
+  </tr>
 </table>
 
 <table>
@@ -71,7 +75,7 @@ Calls confirmation dialog programmatically
     <td colspan="2">Set default values</td>
   </tr>
   <tr>
-    <th colspan="2">Параметры</th>
+    <th colspan="2">Parameters</th>
   </tr>
   <tr>
     <td><code>title: string</code></td>

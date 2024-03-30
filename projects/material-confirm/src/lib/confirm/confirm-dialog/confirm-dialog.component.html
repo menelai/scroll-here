@@ -1,6 +1,41 @@
-<div *ngIf="data?.title" mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle cdkDragBoundary=".cdk-global-overlay-wrapper" ngcMatDialogDragBounds>{{ data.title }}</div>
+<div
+  *ngIf="data?.title"
+  mat-dialog-title
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDragHandle
+  cdkDragBoundary=".cdk-global-overlay-wrapper"
+  ngcMatDialogDragBounds
+>
+  {{ data.title }}
+</div>
+
 <div mat-dialog-content class="pw" [innerHTML]="data.message"></div>
+
 <div align="end" mat-dialog-actions>
-  <button (click)="dialogRef.close()" mat-button type="button">{{ data?.buttons?.cancel }}</button>
-  <button [matDialogClose]="true" cdkFocusInitial mat-button type="submit">{{ data?.buttons?.ok }}</button>
+  <button
+    [matDialogClose]="false"
+    mat-button
+    type="submit"
+  >
+    {{ data?.buttons?.cancel }}
+  </button>
+
+  <button
+    *ngFor="let action of data.actions"
+    [matDialogClose]="action.value"
+    mat-button
+    type="submit"
+  >
+    {{ action.title }}
+  </button>
+
+  <button
+    [matDialogClose]="true"
+    cdkFocusInitial
+    mat-button
+    type="submit"
+  >
+    {{ data?.buttons?.ok }}
+  </button>
 </div>

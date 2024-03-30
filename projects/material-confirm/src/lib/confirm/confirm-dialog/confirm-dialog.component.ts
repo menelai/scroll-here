@@ -5,6 +5,7 @@ interface ConfirmDialogData {
   title: string;
   message: string;
   buttons?: {ok: string, cancel: string};
+  actions?: {value: any, title: string}[];
 }
 
 @Component({

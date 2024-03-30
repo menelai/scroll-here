@@ -29,6 +29,7 @@ export class ConfirmService {
     confirmOk = this.config?.ok || 'ok',
     confirmCancel = this.config?.cancel || 'cancel',
     config?: MatDialogConfig,
+    actions?: {value: any, title: string}[],
   ): Promise<boolean> {
     this.dialogInstance = this.dialog.open(ConfirmDialogComponent, {
       ...this.config,
@@ -40,7 +41,8 @@ export class ConfirmService {
         buttons: {
           ok: confirmOk,
           cancel: confirmCancel,
-        }
+        },
+        actions,
       }
     });
 

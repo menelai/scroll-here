@@ -14,7 +14,8 @@ export class ConfirmDirective {
 
   constructor(private confirmService: ConfirmService) { }
 
-  @HostListener('click', ['$event']) async onClick(e: MouseEvent): Promise<void> {
+  @HostListener('click', ['$event'])
+  async onClick(e: MouseEvent): Promise<void> {
     e.preventDefault();
     e.stopPropagation();
 
