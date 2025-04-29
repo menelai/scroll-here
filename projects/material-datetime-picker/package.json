@@ -1,13 +1,13 @@
 {
   "name": "@kovalenko/material-datetime-picker",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "peerDependencies": {
-    "@angular/cdk": ">=15.0.0",
-    "@angular/common": ">=15.0.0",
-    "@angular/core": ">=15.0.0",
-    "@angular/material": ">=15.0.0",
-    "@angular/material-luxon-adapter": ">=15.0.0",
-    "@ngx-translate/core": ">=14.0.0",
+    "@angular/cdk": ">=19.0.0",
+    "@angular/common": ">=19.0.0",
+    "@angular/core": ">=19.0.0",
+    "@angular/material": ">=19.0.0",
+    "@angular/material-luxon-adapter": ">=19.0.0",
+    "@ngx-translate/core": ">=19.0.0",
     "@kovalenko/base-components": "^2.0.1",
     "luxon": "^3.2.0"
   },

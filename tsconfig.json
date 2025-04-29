@@ -13,7 +13,8 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "paths": {
       "base-components": [
@@ -85,12 +86,8 @@
         "dist/validators"
       ]
     },
-    "target": "es2015",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "target": "ES2022",
+    "module": "ES2022"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

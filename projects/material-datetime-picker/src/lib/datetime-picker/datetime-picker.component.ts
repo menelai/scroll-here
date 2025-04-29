@@ -1,12 +1,16 @@
+import {NgClass} from '@angular/common';
 import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {FormControl, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
+import {FormControl, ReactiveFormsModule, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
+import {MatIconButton} from '@angular/material/button';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import {MatDatepicker, MatDatepickerInput} from '@angular/material/datepicker';
+import {MatFormFieldControl, MatSuffix} from '@angular/material/form-field';
+import {MatIcon} from '@angular/material/icon';
+import {MatInput} from '@angular/material/input';
+import {provideLuxonDateAdapter} from '@angular/material-luxon-adapter';
 import {BaseInputComponent} from '@kovalenko/base-components';
-import {DateTime} from 'luxon';
 import {TranslateService} from '@ngx-translate/core';
+import {DateTime} from 'luxon';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -16,78 +20,92 @@ import {Subscription} from 'rxjs';
   providers: [
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'en'
+      useValue: 'en',
     },
-    {
-      provide: DateAdapter,
-      useClass: LuxonDateAdapter,
-      deps: [MAT_DATE_LOCALE],
-    },
+    provideLuxonDateAdapter(),
     {
       provide: MAT_DATE_FORMATS,
       useValue: {
         parse: {
-          dateInput: 'DD.MM.yyyy'
+          dateInput: 'DD.MM.yyyy',
         },
         display: {
           dateInput: 'dd.MM.yyyy',
           monthYearLabel: 'MMM yyyy',
           dateA11yLabel: 'DD.MM.yyyy',
-          monthYearA11yLabel: 'MMMM yyyy'
-        }
-      }
+          monthYearA11yLabel: 'MMMM yyyy',
+        },
+      },
     },
     {
       provide: MatFormFieldControl,
-      useExisting: DatetimePickerComponent
-    }
-  ]
+      useExisting: DatetimePickerComponent,
+    },
+  ],
+  imports: [
+    MatDatepicker,
+    MatDatepickerInput,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatSuffix,
+    NgClass,
+    ReactiveFormsModule,
+  ],
 })
 export class DatetimePickerComponent extends BaseInputComponent<DateTime | null> implements Validator, OnInit, AfterViewInit, OnDestroy {
-  hourCycle = ['AM', 'PM'].includes((new Date(64_800_000)).toLocaleTimeString().slice(-2).toUpperCase()) ? 'h12' : 'h24';
-  dateControl = new FormControl<DateTime | null>(null);
-  timeControl = new FormControl();
   @ViewChild('timeinput') timeinput: any;
+
   @Input() hasTimePicker = false;
+
   @Input() defaultTime = 0;
+
   @Output() dateChange = new EventEmitter<DateTime | null>();
 
+  readonly hourCycle = ['AM', 'PM']
+    .includes((new Date(64_800_000)).toLocaleTimeString().slice(-2).toUpperCase())
+    ? 'h12'
+    : 'h24';
+
+  dateControl = new FormControl<DateTime | null>(null);
+
+  timeControl = new FormControl();
+
   private _min!: DateTime | null;
+
   private langSubs?: Subscription;
+
+  private _max!: DateTime | null;
+
+  @Input()
+  set min(v: DateTime | null) {
+    this._min = v;
+  }
 
   get min(): DateTime | null {
     return this._min;
   }
 
-  @Input() set min(v: DateTime | null) {
-    this._min = v;
+  @Input()
+  set max(v: DateTime | null) {
+    this._max = v;
   }
-
-  private _max!: DateTime | null;
 
   get max(): DateTime | null {
     return this._max;
   }
 
-  @Input() set max(v: DateTime | null) {
-    this._max = v;
-  }
-
   @Input()
-  get placeholder(): string {
-    return this._placeholder;
-  }
-
-  set placeholder(value: string) {
+  override set placeholder(value: string) {
     this._placeholder = value;
     this.stateChanges.next();
   }
 
-  get ngModel(): DateTime | null {
-    return this._ngModel;
+  override get placeholder(): string {
+    return this._placeholder;
   }
 
-  set ngModel(v: DateTime | null) {
+  override set ngModel(v: DateTime | null) {
     if (v != null && !DateTime.isDateTime(v)) {
       throw new Error('Value is not a DateTime');
     }
@@ -96,12 +114,17 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     this.dateControl.setValue(v);
   }
 
-  get shouldLabelFloat(): boolean {
+  override get ngModel(): DateTime | null {
+    return this._ngModel;
+  }
+
+  override get shouldLabelFloat(): boolean {
     return this.focused || !this.empty;
   }
 
-  get focused(): boolean {
-    return document.activeElement === this.input.nativeElement || this.timeinput != null && document.activeElement === this.timeinput.nativeElement;
+  override get focused(): boolean {
+    return document.activeElement === this.input.nativeElement
+      || this.timeinput != null && document.activeElement === this.timeinput.nativeElement;
   }
 
   constructor(
@@ -111,7 +134,7 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     super();
   }
 
-  ngOnInit() {
+  override ngOnInit(): void {
     super.ngOnInit();
 
     this.dateAdapter.setLocale(this.translate.currentLang);
@@ -127,18 +150,8 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     this.onDisabledChange(this.disabled);
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     this.langSubs?.unsubscribe();
-  }
-
-  protected onDisabledChange(v: boolean): void {
-    if (v) {
-      this.timeControl?.disable();
-      this.dateControl?.disable();
-    } else {
-      this.timeControl?.enable();
-      this.dateControl?.enable();
-    }
   }
 
   openCalendar(picker: MatDatepicker<any>): void {
@@ -151,7 +164,7 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     setTimeout(() => this.input.nativeElement.blur());
   }
 
-  onContainerClick(event: MouseEvent): void {
+  override onContainerClick(event: MouseEvent): void {
     let el = event.target as any;
     while (el && !(el.classList && el.classList.contains('timepicker')) && el.parentNode) {
       el = el.parentNode;
@@ -177,16 +190,20 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
 
     let seconds = this.defaultTime;
     if (this.timeControl.value) {
-      seconds = DateTime.fromFormat(this.timeControl.value, 'HH:mm').diff(DateTime.now().startOf('day')).as('second');
+      seconds = DateTime.fromFormat(this.timeControl.value, 'HH:mm')
+        .diff(DateTime.now().startOf('day'))
+        .as('second');
     }
 
-    console.log(this.dateControl.value);
-    this._ngModel = this.dateControl.value ? this.dateControl.value.startOf('day').plus({seconds}) : null;
+    this._ngModel = this.dateControl.value
+      ? this.dateControl.value.startOf('day').plus({seconds})
+      : null;
+
     this.ngModelChange.emit(this._ngModel);
     this.dateChange.emit(this._ngModel);
   }
 
-  validate = (c: FormControl): ValidationErrors | null => {
+  validate = (): ValidationErrors | null => {
     if (this._min != null && this._ngModel != null && this._ngModel < this._min) {
       return {min: this._min};
     } else if (this._max != null && this._ngModel != null && this._ngModel > this._max) {
@@ -194,5 +211,15 @@ export class DatetimePickerComponent extends BaseInputComponent<DateTime | null>
     }
 
     return null;
+  };
+
+  protected onDisabledChange(v: boolean): void {
+    if (v) {
+      this.timeControl?.disable();
+      this.dateControl?.disable();
+    } else {
+      this.timeControl?.enable();
+      this.dateControl?.enable();
+    }
   }
 }
