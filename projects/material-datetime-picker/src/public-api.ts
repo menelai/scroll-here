@@ -1,5 +1,2 @@
-/*
- * Public API Surface of material-datetime-picker
- */
-
 export * from './lib/datetime-picker/datetime-picker.component';
+export * from './lib/moment-datetime-picker/moment-datetime-picker.component';

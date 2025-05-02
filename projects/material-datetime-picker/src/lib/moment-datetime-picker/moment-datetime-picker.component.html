@@ -1,0 +1,50 @@
+<div class="f vcen gap6 hoverable">
+  <div class="f flex1 vcen">
+    <input
+      #matinput
+      (dateChange)="update()"
+      (focus)="openCalendar(dp)"
+      [formControl]="dateControl"
+      [matDatepicker]="dp"
+      [max]="max"
+      [min]="min"
+      class="dateinput"
+      matInput
+      maxlength="2000"
+      type="text"
+    >
+
+    <mat-datepicker
+      #dp
+      (close)="closeCalendar()"
+      [disabled]="disabled"
+    />
+
+    @if (ngModel && hasTimePicker) {
+      <div class="f timepicker ml8">
+        <input
+          #timeinput
+          (input)="update()"
+          [formControl]="timeControl"
+          class="timeinput"
+          matInput
+          type="time"
+          [ngClass]="hourCycle"
+        >
+      </div>
+    }
+  </div>
+
+  @if (ngModel) {
+    <button
+      matSuffix
+      [disabled]="disabled"
+      (click)="clearDate($event)"
+      class="onhover h36 mt-6 mb-6 mr-8"
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon inline>cancel</mat-icon>
+    </button>
+  }
+</div>
