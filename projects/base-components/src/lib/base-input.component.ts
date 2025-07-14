@@ -1,46 +1,114 @@
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {
+  booleanAttribute,
   Directive,
   DoCheck,
   ElementRef,
-  EventEmitter,
   inject,
   Input,
-  OnDestroy,
   OnInit,
-  Output,
-  ViewChild
+  output,
+  ViewChild,
 } from '@angular/core';
 import {ControlValueAccessor, FormControl, NgControl, NgForm} from '@angular/forms';
-import { Subject} from 'rxjs';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatFormFieldControl} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import {Subject} from 'rxjs';
 
 @Directive()
-export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy {
-  @ViewChild('matinput', {static: true}) input!: ElementRef;
-  @ViewChild('matinput', {static: true, read: MatInput}) matInput!: MatInput;
+export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<T> {
+  static nextId = 0;
 
-  @Output() ngModelChange = new EventEmitter<T>();
+  @ViewChild('matinput', {static: false}) input?: ElementRef;
+
+  @ViewChild('matinput', {static: false, read: MatInput}) matInput?: MatInput;
+
+  readonly selectionChange = output<T>();
 
   ngControl = inject(NgControl, {optional: true, self: true});
 
   errorState!: boolean;
 
-  protected _onChange!: () => void;
+  stateChanges = new Subject<void>();
+
+  describedBy = '';
 
   protected _placeholder!: string;
+
   protected _required = false;
+
   protected _disabled = false;
-  protected _type!: string;
-  protected _id!: string;
-  protected _ngModel!: T;
 
-  stateChanges!: Subject<void>;
+  protected _id = `base-input-${BaseInputComponent.nextId++}`;
 
-  protected _parentForm = inject(NgForm, {optional: true});
+  protected _parentForm? = inject(NgForm, {optional: true});
+
   protected _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+
+  #value!: T;
+
+  @Input()
+  set value(v: T) {
+    this.#value = v;
+    this.onChange(v);
+    this.stateChanges.next();
+  }
+
+  get value(): T {
+    return this.#value;
+  }
+
+  @Input()
+  set placeholder(value: string) {
+    this._placeholder = value;
+    this.stateChanges?.next();
+  }
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  @Input({transform: booleanAttribute})
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+    this.stateChanges?.next();
+  }
+
+  get required(): boolean {
+    return this._required;
+  }
+
+  @Input({transform: booleanAttribute})
+  set disabled(value: boolean) {
+    this._disabled = coerceBooleanProperty(value);
+    this.stateChanges?.next();
+  }
+
+  get disabled(): boolean {
+    return this._disabled;
+  }
+
+  @Input()
+  set id(v: string) {
+    this._id = v;
+  }
+
+  get id(): string {
+    return this._id;
+  }
+
+  get empty(): boolean {
+    return !this.#value;
+  }
+
+  get focused(): boolean {
+    return !!this.input && document.activeElement === this.input.nativeElement;
+  }
+
+  get shouldLabelFloat(): boolean {
+    return this.focused || !this.empty;
+  }
 
   constructor() {
     if (this.ngControl != null) {
@@ -49,17 +117,19 @@ export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAcces
   }
 
   ngOnInit(): void {
-    this.stateChanges = this.matInput.stateChanges;
+    if (this.matInput) {
+      this.stateChanges = this.matInput.stateChanges;
+    }
     this.stateChanges.next();
   }
 
-  ngDoCheck() {
+  ngDoCheck(): void {
     if (this.ngControl) {
       this.updateErrorState();
     }
   }
 
-  updateErrorState() {
+  updateErrorState(): void {
     if (this._parentForm && this._defaultErrorStateMatcher) {
       const oldState = this.errorState;
       const parent = this._parentForm;
@@ -74,74 +144,20 @@ export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAcces
     }
   }
 
-  onContainerClick(event: MouseEvent): void {
-    this.input.nativeElement.focus();
-  }
-
   setDescribedByIds(ids: string[]): void {
+    this.describedBy = ids.join(' ');
   }
 
-  get empty() {
-    return !this._ngModel;
+  onContainerClick(event: MouseEvent): void {
+    this.input?.nativeElement.focus();
   }
 
-  get focused() {
-    return this.input && document.activeElement === this.input.nativeElement;
-  }
+  onChange = (value: any): any => {};
 
-  @Input()
-  get placeholder(): string { return this._placeholder; }
-  set placeholder(value: string) {
-    this._placeholder = value;
-    this.stateChanges?.next();
-  }
+  onTouched = (): any => {};
 
-  @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) {
-    this._required = coerceBooleanProperty(value);
-    this.stateChanges?.next();
-  }
-
-  @Input()
-  get disabled(): boolean { return this._disabled; }
-  set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
-    this.stateChanges?.next();
-  }
-
-
-  @Input() set id(v: string) {
-    this._id = v;
-  }
-  get id(): string {
-    return this._id;
-  }
-
-  @Input() get ngModel(): T {
-    return this._ngModel;
-  }
-  set ngModel(v: T) {
-    this._ngModel = v;
-    this.ngModelChange.emit(v);
-  }
-
-  @Input()
-  public get value(): T {
-    return this._ngModel;
-  }
-  public set value(v: T) {
-    this._ngModel = v;
-  }
-
-  get shouldLabelFloat() {
-    return this.focused || !this.empty;
-  }
-
-  onChange: any = () => {};
-  onTouched: any = () => {};
-
-  writeValue(value: string): void {
+  writeValue(value: T): void {
+    this.value = value;
   }
 
   registerOnChange(fn: any): void {
@@ -151,10 +167,4 @@ export class BaseInputComponent<T> implements OnInit, DoCheck, ControlValueAcces
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-
-  registerOnValidatorChange(fn: () => void): void {
-    this._onChange = fn;
-  }
-
-  ngOnDestroy() { }
 }

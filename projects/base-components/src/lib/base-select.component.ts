@@ -1,17 +1,34 @@
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import {ControlValueAccessor, FormControl, NgControl, NgForm} from '@angular/forms';
-import {Directive, DoCheck, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {Subject} from 'rxjs';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {
+  booleanAttribute,
+  Directive,
+  DoCheck,
+  EventEmitter,
+  inject,
+  input,
+  Input,
+  OnInit,
+  Output,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import {ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatFormFieldControl} from '@angular/material/form-field';
+import {MatSelect} from '@angular/material/select';
+import {Subject} from 'rxjs';
 
 @Directive()
-export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<T>, OnDestroy {
-  @ViewChild('matinput', {static: true}) select!: MatSelect;
-  @Output() ngModelChange = new EventEmitter<T>();
-  @Output() selectionChange = new EventEmitter<T>();
-  @Output() readonly valueChange: EventEmitter<T> = new EventEmitter<T>();
+export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<T> {
+  static nextId = 0;
+
+  @ViewChild(MatSelect, {static: true}) select!: MatSelect;
+
+  @Output() readonly selectionChange = new EventEmitter<T>();
+
+  readonly multiple = input(false, {transform: booleanAttribute});
+
+  readonly _disabled = signal(false);
 
   ngControl = inject(NgControl, {optional: true, self: true});
 
@@ -19,15 +36,84 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
 
   stateChanges!: Subject<void>;
 
-  protected _placeholder!: string;
-  protected _required = false;
-  protected _disabled = false;
-  protected _type!: string;
-  protected _id!: string;
-  protected _ngModel!: T;
+  describedBy = '';
 
-  protected _parentForm = inject(NgForm, {optional: true});
-  protected _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+  protected _placeholder!: string;
+
+  protected _required!: boolean;
+
+  protected _id = `base-select-${BaseSelectComponent.nextId++}`;
+
+  protected readonly _parentForm = inject(NgForm, {optional: true});
+
+  protected readonly parentFormGroup = inject(FormGroupDirective, {optional: true});
+
+  protected readonly _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+
+  readonly #value = signal<T>(undefined as T);
+
+  @Input()
+  set value(v: T) {
+    this.#value.set(v);
+    this.onChange(v);
+    this.stateChanges?.next();
+  }
+
+  get value(): T {
+    return this.#value();
+  }
+
+  @Input()
+  set placeholder(value: string) {
+    this._placeholder = value;
+    this.stateChanges?.next();
+  }
+
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  @Input({transform: booleanAttribute})
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+    this.stateChanges?.next();
+  }
+
+  get required(): boolean {
+    return this._required ?? this.ngControl?.control?.hasValidator(Validators.required) ?? false;
+  }
+
+  @Input({transform: booleanAttribute})
+  set disabled(value: boolean) {
+    this._disabled.set(coerceBooleanProperty(value));
+    this.stateChanges?.next();
+  }
+
+  get disabled(): boolean {
+    return this._disabled();
+  }
+
+  @Input()
+  set id(v: string) {
+    this._id = v;
+  }
+
+  get id(): string {
+    return this._id;
+  }
+
+  get empty(): boolean {
+    const v = this.#value();
+    return !v || Array.isArray(v) && v.length === 0;
+  }
+
+  get focused(): boolean {
+    return this.select.focused;
+  }
+
+  get shouldLabelFloat(): boolean {
+    return this.select.panelOpen || !this.empty;
+  }
 
   constructor() {
     if (this.ngControl != null) {
@@ -40,16 +126,20 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
     this.stateChanges.next();
   }
 
-  ngDoCheck() {
+  ngDoCheck(): void {
     if (this.ngControl) {
       this.updateErrorState();
     }
   }
 
-  updateErrorState() {
-    if (this._parentForm && this._defaultErrorStateMatcher) {
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  updateErrorState(): void {
+    if ((this.parentFormGroup || this._parentForm) && this._defaultErrorStateMatcher) {
       const oldState = this.errorState;
-      const parent = this._parentForm;
+      const parent = this._parentForm ?? this.parentFormGroup;
       const matcher = this._defaultErrorStateMatcher;
       const control = this.ngControl ? this.ngControl.control as FormControl : null;
       const newState = matcher.isErrorState(control, parent);
@@ -61,40 +151,8 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
     }
   }
 
-  get shouldLabelFloat() {
-    return this.select.panelOpen || !this.empty;
-  }
-
   setDescribedByIds(ids: string[]): void {
-  }
-
-  get empty() {
-    return !this._ngModel || Array.isArray(this._ngModel) && this._ngModel.length === 0;
-  }
-
-  get focused() {
-    return this.select.focused;
-  }
-
-  @Input()
-  get placeholder(): string { return this._placeholder; }
-  set placeholder(value: string) {
-    this._placeholder = value;
-    this.stateChanges?.next();
-  }
-
-  @Input()
-  get required(): boolean { return this._required; }
-  set required(value: boolean) {
-    this._required = coerceBooleanProperty(value);
-    this.stateChanges?.next();
-  }
-
-  @Input()
-  get disabled(): boolean { return this._disabled; }
-  set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
-    this.stateChanges?.next();
+    this.describedBy = ids.join(' ');
   }
 
   onContainerClick(event: MouseEvent): void {
@@ -102,37 +160,13 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
     this.select.open();
   }
 
-  @Input() set id(v: string) {
-    this._id = v;
-  }
-  get id(): string {
-    return this._id;
-  }
+  onChange = (value: any): any => {};
 
-  @Input() get ngModel(): T {
-    return this._ngModel;
-  }
-  set ngModel(v: T) {
-    this._ngModel = v;
-    this.ngModelChange.emit(v);
-  }
+  onTouched = (): any => {};
 
-  @Input()
-  get value(): T {
-    return this._ngModel;
-  }
-  set value(v: T) {
-    this._ngModel = v;
-  }
-
-
-  onChange: any = () => {};
-  onTouched: any = () => {};
-
-  ngOnDestroy() {
-  }
-
-  writeValue(value: string): void {
+  writeValue(value: T): void {
+    this.#value.set(value);
+    this.stateChanges?.next();
   }
 
   registerOnChange(fn: any): void {
@@ -141,13 +175,5 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  trackByIndex(index: any) {
-    return index;
-  }
-
-  onSelectionChange(event?: any) {
-    this.onTouched();
   }
 }
