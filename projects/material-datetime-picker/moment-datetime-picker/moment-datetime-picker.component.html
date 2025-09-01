@@ -20,7 +20,7 @@
       [disabled]="disabled"
     />
 
-    @if (ngModel && hasTimePicker) {
+    @if (value && hasTimePicker) {
       <div class="f timepicker ml8">
         <input
           #timeinput
@@ -35,7 +35,7 @@
     }
   </div>
 
-  @if (ngModel) {
+  @if (value) {
     <button
       matSuffix
       [disabled]="disabled"

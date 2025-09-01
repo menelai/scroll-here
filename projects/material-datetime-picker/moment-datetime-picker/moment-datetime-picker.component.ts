@@ -52,7 +52,7 @@ import moment, {isMoment, Moment} from 'moment';
     ReactiveFormsModule,
   ],
 })
-export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | null> implements Validator, OnInit, AfterViewInit, OnDestroy {
+export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | null | undefined> implements Validator, OnInit, AfterViewInit, OnDestroy {
   @ViewChild('timeinput') timeinput: any;
 
   @Input() hasTimePicker = false;
@@ -66,7 +66,7 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
     ? 'h12'
     : 'h24';
 
-  dateControl = new FormControl<Moment | null>(null);
+  dateControl = new FormControl<Moment | null | undefined>(null);
 
   timeControl = new FormControl();
 
@@ -104,7 +104,7 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
     return this._placeholder;
   }
 
-  override set ngModel(v: Moment | null) {
+  /*override set ngModel(v: Moment | null) {
     if (v != null && !isMoment(v)) {
       v = moment(v);
     }
@@ -115,14 +115,14 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
 
   override get ngModel(): Moment | null {
     return this._ngModel;
-  }
+  }*/
 
   override get shouldLabelFloat(): boolean {
     return this.focused || !this.empty;
   }
 
   override get focused(): boolean {
-    return document.activeElement === this.input.nativeElement
+    return document.activeElement === this.input?.nativeElement
       || this.timeinput != null && document.activeElement === this.timeinput.nativeElement;
   }
 
@@ -149,18 +149,18 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
     this.onDisabledChange(this.disabled);
   }
 
-  override ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.langSubs?.unsubscribe();
   }
 
   openCalendar(picker: MatDatepicker<any>): void {
     picker.open();
-    setTimeout(() => this.input.nativeElement.focus());
+    setTimeout(() => this.input?.nativeElement.focus());
   }
 
   closeCalendar(): void {
     this.onTouched();
-    setTimeout(() => this.input.nativeElement.blur());
+    setTimeout(() => this.input?.nativeElement.blur());
   }
 
   override onContainerClick(event: MouseEvent): void {
@@ -170,7 +170,7 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
     }
 
     if (!el.tagName) {
-      this.input.nativeElement.focus();
+      this.input?.nativeElement.focus();
     } else if (el.classList && el.classList.contains('timepicker')) {
       this.timeinput.nativeElement.focus();
     }
@@ -179,7 +179,7 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
   clearDate($event: MouseEvent): void {
     $event.stopPropagation();
     $event.preventDefault();
-    this.ngModel = undefined as any;
+    this.writeValue(undefined);
     this.update();
   }
 
@@ -192,16 +192,24 @@ export class MomentDatetimePickerComponent extends BaseInputComponent<Moment | n
       seconds = moment(this.timeControl.value, 'HH:mm').diff(moment().startOf('day'), 's');
     }
 
-    this._ngModel = this.dateControl.value && moment(this.dateControl.value).startOf('day').add(seconds, 's') || null;
+    this.value = this.dateControl.value && moment(this.dateControl.value).startOf('day').add(seconds, 's') || null;
 
-    this.ngModelChange.emit(this._ngModel);
-    this.dateChange.emit(this._ngModel);
+    this.dateChange.emit(this.value);
+  }
+
+  override writeValue(v: Moment | null | undefined): void {
+    if (v != null && !isMoment(v)) {
+      v = moment(v);
+    }
+    this.value = v;
+    this.timeControl.setValue(v?.format('HH:mm') ?? '');
+    this.dateControl.setValue(v);
   }
 
   validate = (): ValidationErrors | null => {
-    if (this._min != null && this._ngModel != null && this._ngModel < this._min) {
+    if (this._min != null && this.value != null && this.value < this._min) {
       return {min: this._min};
-    } else if (this._max != null && this._ngModel != null && this._ngModel > this._max) {
+    } else if (this._max != null && this.value != null && this.value > this._max) {
       return {max: this._max};
     }
 

@@ -2,6 +2,7 @@
   <div class="f flex1 vcen">
     <input
       #matinput
+      (input)="update()"
       (dateChange)="update()"
       (focus)="openCalendar(dp)"
       [formControl]="dateControl"
@@ -20,7 +21,7 @@
       [disabled]="disabled"
     />
 
-    @if (ngModel && hasTimePicker) {
+    @if (value && hasTimePicker) {
       <div class="f timepicker ml8">
         <input
           #timeinput
@@ -35,7 +36,7 @@
     }
   </div>
 
-  @if (ngModel) {
+  @if (value) {
     <button
       matSuffix
       [disabled]="disabled"

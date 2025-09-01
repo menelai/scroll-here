@@ -1,6 +1,6 @@
 {
   "name": "@kovalenko/material-datetime-picker",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "peerDependencies": {
     "@angular/cdk": ">=19.0.0",
     "@angular/common": ">=19.0.0",
@@ -9,7 +9,7 @@
     "@angular/material-luxon-adapter": ">=19.0.0",
     "@angular/material-moment-adapter": ">=19.0.0",
     "@ngx-translate/core": ">=16",
-    "@kovalenko/base-components": "^2.0.1",
+    "@kovalenko/base-components": "^3",
     "luxon": "^3.2.0",
     "moment": ""
   },

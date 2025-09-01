@@ -62,7 +62,7 @@
     "@angular/platform-browser-dynamic": "^19.2.8",
     "@angular/router": "^19.2.8",
     "@fingerprintjs/fingerprintjs": "^3.1.2",
-    "@kovalenko/base-components": "^2.0.1",
+    "@kovalenko/base-components": "^3.0.0",
     "@kovalenko/mat-dialog-drag-bounds": "^1.1.0",
     "@kovalenko/material-confirm": "^1.1.1",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
