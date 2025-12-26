@@ -4,3 +4,4 @@
 
 export * from './lib/base-input.component';
 export * from './lib/base-select.component';
+export * from './lib/base-edit-dialog.component';

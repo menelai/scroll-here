@@ -156,8 +156,10 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
   }
 
   onContainerClick(event: MouseEvent): void {
-    this.select.focus();
-    this.select.open();
+    if (!(event.target as any).closest('.cdk-overlay-backdrop')) {
+      this.select.focus();
+      this.select.open();
+    }
   }
 
   onChange = (value: any): any => {};
