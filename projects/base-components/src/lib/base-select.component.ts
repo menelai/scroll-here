@@ -1,5 +1,5 @@
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
+import {MatFormFieldControl} from '@angular/material/form-field';
+import {MatSelect} from '@angular/material/select';
 import {ControlValueAccessor, FormControl, NgControl, NgForm} from '@angular/forms';
 import {Directive, DoCheck, EventEmitter, inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
@@ -98,8 +98,10 @@ export class BaseSelectComponent<T> implements OnInit, DoCheck, ControlValueAcce
   }
 
   onContainerClick(event: MouseEvent): void {
-    this.select.focus();
-    this.select.open();
+    if (!(event.target as any).closest('.cdk-overlay-backdrop')) {
+      this.select.focus();
+      this.select.open();
+    }
   }
 
   @Input() set id(v: string) {
