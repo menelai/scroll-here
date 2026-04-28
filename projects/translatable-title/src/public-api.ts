@@ -3,4 +3,3 @@
  */
 
 export * from './lib/translatable-title.service';
-export * from './lib/translatable-title.module';
