@@ -10,7 +10,7 @@ npm install @kovalenko/material-confirm
 
 ### Directive
 
-Selector: `(confirm)`
+Selector: `confirm`
 
 #### Properties
 
@@ -93,13 +93,12 @@ Calls confirmation dialog programmatically
 
 ## Usage
 
-First, import the MaterialConfirmModule to your module:
+This library uses standalone components. Import `ConfirmDirective` directly in your component's `imports` array and provide the configuration using `provideMaterialConfirm()`:
 
 ```typescript
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {MaterialConfirmModule, MaterialConfirmConfig} from '@kovalenko/material-confirm';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {Component} from '@angular/core';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {ConfirmDirective, provideMaterialConfirm, MaterialConfirmConfig} from '@kovalenko/material-confirm';
 import {AppComponent} from './app';
 
 const materialConfirmConfig: MaterialConfirmConfig = {
@@ -111,29 +110,24 @@ const materialConfirmConfig: MaterialConfirmConfig = {
   width: '400px'
 };
 
-@NgModule({
-  imports: [
-    BrowserModule,
-    MaterialConfirmModule.config(materialConfirmConfig)
-  ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-})
-export class AppModule {
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule);
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideMaterialConfirm(materialConfirmConfig),
+  ]
+});
 ```
 
 Confirmation via directive
 
 ```typescript
 import { Component } from '@angular/core';
+import { ConfirmDirective } from '@kovalenko/material-confirm';
 
 @Component({
   selector: 'app',
+  imports: [ConfirmDirective],
   template: `
-    <button (confirm)="callback()" [confirmMessage]="message">Click</button>
+    <button confirm (confirm)="callback()" [confirmMessage]="message">Click</button>
   `,
 })
 export class AppComponent {

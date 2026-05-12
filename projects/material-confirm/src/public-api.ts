@@ -5,5 +5,5 @@
 export * from './lib/confirm/confirm.directive';
 export * from './lib/confirm/confirm.service';
 export * from './lib/confirm.config';
+export * from './lib/confirm.providers';
 export * from './lib/material-confirm-config.interface';
-export * from './lib/material-confirm.module';

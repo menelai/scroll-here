@@ -1,14 +1,15 @@
-<div
-  *ngIf="data?.title"
-  mat-dialog-title
-  cdkDrag
-  cdkDragRootElement=".cdk-overlay-pane"
-  cdkDragHandle
-  cdkDragBoundary=".cdk-global-overlay-wrapper"
-  ngcMatDialogDragBounds
->
-  {{ data.title }}
-</div>
+@if (data?.title) {
+  <div
+    mat-dialog-title
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+    cdkDragBoundary=".cdk-global-overlay-wrapper"
+    ngcMatDialogDragBounds
+  >
+    {{ data.title }}
+  </div>
+}
 
 <div mat-dialog-content class="pw" [innerHTML]="data.message"></div>
 
@@ -21,14 +22,15 @@
     {{ data?.buttons?.cancel }}
   </button>
 
-  <button
-    *ngFor="let action of data.actions"
-    [matDialogClose]="action.value"
-    mat-button
-    type="submit"
-  >
-    {{ action.title }}
-  </button>
+  @for (action of data.actions; track action.value) {
+    <button
+      [matDialogClose]="action.value"
+      mat-button
+      type="submit"
+    >
+      {{ action.title }}
+    </button>
+  }
 
   <button
     [matDialogClose]="true"

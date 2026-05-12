@@ -1,9 +1,10 @@
-import {Directive, HostListener, Input, Output, EventEmitter} from '@angular/core';
+import {Directive, HostListener, Input, Output, EventEmitter, inject} from '@angular/core';
 import {ConfirmService} from './confirm.service';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[confirm]'
+  selector: '[confirm]',
+  standalone: true
 })
 export class ConfirmDirective {
   @Input() confirmTitle?: string;
