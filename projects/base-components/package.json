@@ -1,12 +1,12 @@
 {
   "name": "@kovalenko/base-components",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "peerDependencies": {
     "@angular/common": ">=21.0.0",
     "@angular/core": ">=21.0.0",
     "@angular/material": ">=21.0.0",
     "@angular/cdk": ">=21.0.0",
-    "@ngx-translate/core": ">=18.0.0-rc.1"
+    "@ngx-translate/core": ">=18.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
