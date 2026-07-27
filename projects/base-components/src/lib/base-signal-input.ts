@@ -1,5 +1,6 @@
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {booleanAttribute, Directive, DoCheck, inject, Input, OnDestroy, OnInit, signal} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {_ErrorStateTracker, ErrorStateMatcher} from '@angular/material/core';
 import {MatFormFieldControl} from '@angular/material/form-field';
@@ -14,6 +15,8 @@ export class BaseSignalInput<T> implements OnInit, DoCheck, OnDestroy, ControlVa
   readonly ngControl = inject(NgControl, {optional: true, self: true});
 
   readonly stateChanges = new Subject<void>();
+
+  readonly stateChange = toSignal(this.stateChanges);
 
   readonly describedBy = signal('');
 
@@ -116,10 +119,13 @@ export class BaseSignalInput<T> implements OnInit, DoCheck, OnDestroy, ControlVa
     this.stateChanges.complete();
   }
 
-  update(value: T): void {
+  update(value: T, force = false): void {
     this.value = value;
     this.onChange(value);
-    this.onTouched();
+
+    if (force) {
+      this.onTouched();
+    }
   }
 
   setDescribedByIds(ids: string[]): void {

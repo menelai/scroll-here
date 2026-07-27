@@ -1,6 +1,6 @@
 {
   "name": "@kovalenko/base-components",
-  "version": "4.0.2",
+  "version": "4.1.1",
   "peerDependencies": {
     "@angular/common": ">=21.0.0",
     "@angular/core": ">=21.0.0",
